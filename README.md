@@ -1,8 +1,4 @@
-Replace these files in C:\dev\Early-Bird\app:
+Replace app/globals.css in C:\dev\Early-Bird\app.
 
-- page.tsx
-- globals.css
-- ContactForm.tsx
-- CurrentYear.tsx
-
-This version keeps the contact form/footer and adjusts the mobile hero crop so more sky and the child's upper body are visible. It also reduces the cream haze over the mobile hero image.
+This version keeps the latest mobile hero crop and makes the
+“Now accepting infants, toddlers, and preschoolers.” line white/light on mobile only.

@@ -718,6 +718,11 @@ footer {
 }
 
 @media (max-width: 620px) {
+  .heroLead {
+    color: rgba(255, 255, 255, 0.96);
+    text-shadow: 0 2px 10px rgba(16, 43, 77, 0.28);
+  }
+
   .siteHeader {
     min-height: 88px;
     padding: 9px 14px;
