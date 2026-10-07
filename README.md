@@ -5,8 +5,4 @@ Replace these files in C:\dev\Early-Bird\app:
 - ContactForm.tsx
 - CurrentYear.tsx
 
-Keep your existing public image files.
-
-The demo contact form intentionally prevents submission.
-The footer year is generated in the browser, so it updates automatically after New Year.
-The Rudie Digital link points to https://digital.rudie.org.
+This version keeps the contact form/footer and adjusts the mobile hero crop so more sky and the child's upper body are visible. It also reduces the cream haze over the mobile hero image.
