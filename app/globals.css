@@ -32,3 +32,6 @@
 .lettyContent h2{font-family:Nunito,sans-serif;font-size:clamp(30px,3.7vw,48px);line-height:1.14;margin:15px 0 20px}.lettyContent p{line-height:1.85;color:#4e4b5c;font-size:16px}.lettyContent blockquote{border-left:4px solid #df4f8e;padding:13px 0 13px 22px;margin:24px 0;color:#6f4a76;font-size:19px;font-weight:700;line-height:1.6}.lettyFacts{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0}.lettyFacts span{background:white;border:1px solid #f0d6e6;padding:10px 14px;border-radius:30px;font-size:13px;font-weight:700}
 .lettyContent .textLink{display:inline-block;margin-top:14px}
 @media(max-width:760px){.lettySection{grid-template-columns:1fr;padding:55px 6%}.lettyPortrait{min-height:240px}.lettyContent h2{font-size:32px}}
+
+/* v1.3 — qualifications and tuition */
+.credentialSection{padding:70px max(6%,calc((100% - 950px)/2));text-align:center;background:#f2f9f2}.credentialSection h2{font:800 clamp(28px,3.5vw,42px)/1.2 Nunito,sans-serif;margin:16px auto 20px;max-width:780px}.credentialSection p{font-size:16px;line-height:1.9;max-width:830px;margin:0 auto;color:#4c5360}.tuitionInfo{margin:20px 0 0;line-height:1.6;font-size:15px}
