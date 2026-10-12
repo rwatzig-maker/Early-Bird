@@ -70,3 +70,8 @@
 .featuredStories .textLink{margin-top:0;font-size:14px;line-height:1.5;text-decoration:underline;text-decoration-color:#d5bacb;text-underline-offset:4px}
 .grantCredit{font-size:13px!important;line-height:1.7!important;color:#67606b!important;border-left:2px solid #b994a3;padding-left:14px;margin-top:20px}
 .grantCredit a{text-decoration:underline;text-underline-offset:3px}
+
+/* Enrollment form: accessible native selects that match existing fields */
+.contactFormV11 select{width:100%;min-height:47px;border:1px solid #ded4dd;border-radius:10px;background:#fff;color:#393342;padding:11px 13px;font:inherit;cursor:pointer}
+.contactFormV11 select:focus-visible,.contactFormV11 input:focus-visible,.contactFormV11 textarea:focus-visible{outline:3px solid #df9dbf;outline-offset:2px}
+.contactFormV11 button:disabled{opacity:.65;cursor:wait}
