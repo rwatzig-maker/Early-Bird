@@ -93,3 +93,70 @@
 .mealIllustration{background:#f4eadd;border-radius:24px;min-height:340px;padding:0;display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:0 8px 24px rgba(77,58,41,.06)}
 .mealIllustration img{display:block;width:100%;height:auto;min-height:0;max-height:480px;object-fit:contain}
 @media(max-width:760px){.mealIllustration{min-height:0;order:2}.mealIllustration img{min-height:0;max-height:none}}
+
+
+/* -------------------------------------------------------
+   Early Bird 1.4 | Warm editorial art direction
+   Quiet, image-led layout; deliberately small brand flourishes
+   ------------------------------------------------------- */
+:root{--ink:#303046;--pink:#d65388;--purple:#7662a4;--sage:#779d80;--butter:#efc45e;--paper:#fffaf3}
+body{background:var(--paper)}
+.siteHeader{box-shadow:0 1px 0 rgba(74,53,66,.08)}
+.announcement{background:#694b89;letter-spacing:.015em}
+.twinkle{font-size:10px;vertical-align:middle;opacity:.65}
+.hero{min-height:630px}
+.heroShade{background:linear-gradient(90deg,rgba(32,28,40,.79),rgba(32,28,40,.48) 54%,rgba(32,28,40,.07))}
+.heroContent{max-width:780px}
+.hero h1{letter-spacing:-.045em;text-wrap:balance;line-height:1.06}
+.heroContent p{max-width:600px;line-height:1.75}
+.heroEyebrow{display:inline-flex;align-items:center;gap:8px;letter-spacing:.12em}
+.heroSun{display:inline-grid;place-items:center;color:#f6cb61;font-size:22px;line-height:1}
+.heroTrustLine{display:flex;flex-wrap:wrap;gap:10px 18px;margin-top:22px;color:#fff7e7;font-weight:700;font-size:13px;letter-spacing:.01em}
+.heroTrustLine span{display:inline-flex;align-items:center;gap:10px}
+.heroTrustLine span+span:before{content:"";width:4px;height:4px;border-radius:50%;background:#efc45e}
+.btnPink,.headerCall{transition:transform .2s ease,box-shadow .2s ease}
+.btnPink:hover,.headerCall:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(91,36,67,.18)}
+.sectionHeading h2,.lettyContent h2,.dayText h2,.mealCopy h2,.playCopy h2,.hoursSection h2,.contactInfo h2{text-wrap:balance;letter-spacing:-.035em}
+.sectionHeading{margin-bottom:40px}
+.why{background:linear-gradient(180deg,#fffaf6 0%,#fffdfb 100%)}
+.features{gap:18px}
+.feature{padding:28px!important;border:1px solid #e9e4dd!important;border-radius:16px!important;background:#fffefa!important}
+.feature:nth-child(2),.feature:nth-child(5){transform:translateY(12px)}
+.feature:nth-child(2):hover,.feature:nth-child(5):hover{transform:translateY(9px)}
+.featureIcon{height:43px!important;color:#be5d86}
+.feature:nth-child(2) .featureIcon,.feature:nth-child(5) .featureIcon{color:#648b75}
+.feature:nth-child(3) .featureIcon,.feature:nth-child(6) .featureIcon{color:#9c76b6}
+.feature h3{margin-top:14px;letter-spacing:-.02em}
+.lettySection{background:linear-gradient(125deg,#fff3ec,#fffaf5 63%,#f3f6ea);position:relative;overflow:hidden;gap:clamp(32px,6vw,85px)}
+.lettySection:before{content:"";position:absolute;right:-90px;top:-110px;width:300px;height:300px;border:1px solid rgba(213,83,136,.12);border-radius:50%;pointer-events:none}
+.lettyPortrait{position:relative;background:#f5e5e6!important;border-radius:25px;box-shadow:16px 16px 0 #e4ebdc;transform:rotate(-1.3deg);padding:18px 18px 25px}
+.lettyPhoto{border-radius:17px;max-height:500px;object-fit:cover}
+.lettyPortrait strong{font-size:clamp(29px,3.2vw,39px);line-height:1.2}
+.lettyPortrait small{color:#67536a}
+.portraitFlourish{position:absolute;z-index:1;top:-25px;right:-22px;color:#e5b74a;font-size:65px;line-height:1;transform:rotate(12deg)}
+.lettyContent blockquote{font-style:italic;border-left-color:#d65388;background:rgba(255,255,255,.48);padding:16px 20px;border-radius:0 9px 9px 0}
+.lettyFacts span{background:#fffefb;box-shadow:none}
+.daySection,.playSection{position:relative}
+.dayPhotos img,.playImage img{border-radius:19px}
+.mealSection{background:#fff5e1;gap:clamp(35px,5vw,80px)}
+.mealIllustration{box-shadow:12px 12px 0 rgba(216,170,114,.16);border-radius:22px}
+.gallerySection{background:#fffdf9}
+.credentialSection{background:#eef5ed;border-top:1px solid #e1ebe0;border-bottom:1px solid #e1ebe0}
+.reviewSection{background:#fff9f7}
+.hoursSection{background:#fcf3df}
+.tuitionCard{background:#fffdfa}
+.contactSection{background:#f6f0f7}
+.contactFormV11{box-shadow:0 15px 45px rgba(69,44,79,.07)}
+.footer{border-top:1px solid rgba(58,38,53,.1)}
+@media(max-width:900px){.feature:nth-child(2),.feature:nth-child(5){transform:none}.feature:nth-child(2):hover,.feature:nth-child(5):hover{transform:translateY(-2px)}}
+@media(max-width:760px){
+.hero{min-height:590px}.heroTrustLine{gap:8px 12px;font-size:12px}
+.heroTrustLine span+span:before{width:3px;height:3px}
+.lettyPortrait{transform:none;box-shadow:9px 9px 0 #e4ebdc;max-width:470px;margin:0 auto 12px}
+.portraitFlourish{right:-12px;top:-19px;font-size:44px}
+.lettySection{gap:27px}
+.sectionHeading{margin-bottom:28px}
+.feature{padding:22px!important}
+.mealIllustration{box-shadow:6px 6px 0 rgba(216,170,114,.16)}
+}
+@media(prefers-reduced-motion:reduce){.btnPink,.headerCall,.feature{transition:none!important}}
