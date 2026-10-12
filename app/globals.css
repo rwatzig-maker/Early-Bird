@@ -63,3 +63,10 @@
 .contactDetail{display:flex;align-items:center;gap:4px}
 .lettyFacts span{border-radius:9px;background:#fffaf6}
 @media(max-width:760px){.mealIllustration,.mealIllustration img{min-height:250px}.tuitionCard{padding:17px}.features{gap:12px}}
+
+/* Editorial links for Letty's community story */
+.featuredStories{display:flex;flex-direction:column;align-items:flex-start;gap:11px;border-top:1px solid #e9dcd5;margin-top:26px;padding-top:19px}
+.featuredStories>span{font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#766574}
+.featuredStories .textLink{margin-top:0;font-size:14px;line-height:1.5;text-decoration:underline;text-decoration-color:#d5bacb;text-underline-offset:4px}
+.grantCredit{font-size:13px!important;line-height:1.7!important;color:#67606b!important;border-left:2px solid #b994a3;padding-left:14px;margin-top:20px}
+.grantCredit a{text-decoration:underline;text-underline-offset:3px}
