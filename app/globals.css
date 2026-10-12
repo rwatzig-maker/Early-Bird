@@ -264,3 +264,11 @@ body{background:var(--paper)}
 @media(max-width:760px){.heroCard{border-radius:24px!important;box-shadow:7px 8px 0 rgba(238,197,100,.30),0 17px 34px rgba(29,26,37,.15)!important}.heroCard:before{width:62px;height:62px;right:-14px;top:-20px}.heroCard h1{font-size:clamp(35px,9vw,52px)!important}.features>.feature{min-height:0}.lettyPortraitWrap .lettyPortrait{box-shadow:9px 10px 0 #dde9d8!important}.mealIllustration{transform:none;box-shadow:7px 8px 0 rgba(226,184,102,.25)!important}.reviewCard{box-shadow:5px 7px 0 #eddfed!important}.tourCtaInner{box-shadow:6px 8px 0 rgba(119,158,126,.17)!important}}
 @media(prefers-reduced-motion:reduce){.heroCard,.reviewCard,.features>.feature{transition:none!important}}
 
+
+/* v1.4.2 accessibility fix: readable review heading on blush background */
+.reviewSection{color:#303046!important}
+.reviewSection h2{color:#303046!important;text-shadow:none!important}
+.reviewSection .eyebrow{color:#9c386e!important}
+.reviewSection .reviewDisclaimer{color:#62566a!important}
+.reviewSection .textLink{color:#85416e!important}
+.reviewSection .textLink:hover{color:#67274f!important}
