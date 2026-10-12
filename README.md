@@ -1,35 +1,43 @@
-# Early Bird Child Care — Website v1.1
+# Early Bird Child Care — v1.4.1 Visual Identity Update
 
-Next.js 16 bilingual public website based on the original Early Bird demo.
+This is a **local, no-push upgrade package** for the **existing** `rwatzig-maker/Early-Bird` Next.js project. It keeps the complete bilingual site, gallery, contact form, reviews, existing metadata, and the current backend intact.
 
-## What's in v1.1
-- Real Early Bird photos optimized to WebP (13 images; max 1920 pixels)
-- Mobile-responsive homepage with playground hero, features, activities, gallery and four authentic review excerpts
-- English / Spanish language switch (manual translations, no external translation API)
-- 13-photo gallery with categories and lightbox
-- Single announcement banner (currently static and always visible; editable toggle requires the Supabase admin phase)
-- Inquiry form with Resend delivery route, disabled with clear user-facing error until `.env` values are set
+## Install (Windows PowerShell)
 
-## Run locally
-```bash
-npm install
-npm run dev
-```
+1. Unzip the package anywhere, e.g. `Downloads/early-bird-v1.4.1`.
+2. Open a terminal in your **existing Early-Bird repository root**, the folder containing `package.json` and `app/`.
+3. Run the installer with the full path to the unpacked script, for example:
 
-## Contact form configuration
-Copy `.env.example` to `.env.local`. Verify a sending domain in Resend and set `RESEND_API_KEY`, `CONTACT_FROM_EMAIL` and `CONTACT_TO_EMAIL`. Without them the form cannot send. Add rate limiting and Turnstile before public deployment to prevent spam. Do not collect children's personal information.
+   ```powershell
+   py "$HOME\Downloads\early-bird-v1.4.1\apply_v141.py"
+   ```
 
-## Critical before public release
-1. **Written photo permissions:** These are identifiable children. DO NOT publish any uploaded photos showing children until Letty has verified each child's guardian permission specifically for public website use. Remove/restrict any unapproved images.
-2. Confirm displayed business hours, Saturday availability, license category and licensed maximum (16) with Letty. Hours displayed are based on consultation notes; older demo said 6:30 AM rather than 5:30 AM.
-3. Confirm and obtain permission to reproduce Google review excerpts; consider using links to source reviews instead. Translations are illustrative editorial translations, not Google originals.
-4. Verify phone number (consultation notes conflict with the old website).
-5. Configure email sending and bot protection. Run E2E smoke checks on staging.
+4. Check the result:
 
-## Future paid-production stage (NOT included in v1.1)
-- Dedicated per-client Supabase project, Storage bucket and admin auth with enforced MFA/RBAC/RLS
-- Simple admin: hours editor, gallery editor enforcing maximum 40 photos with WebP optimization at upload, and editable/on-off bilingual announcement banner
-- Database & Storage backups to Cloudflare R2, scheduled GitHub Actions, verified restore
-- Migration scripts from temporary shared development project
+   ```powershell
+   git diff --check
+   npm run build
+   npm run dev
+   ```
 
-Source photos are NOT committed to Git in the intended production workflow after admin uploads launch; content images should move to Supabase Storage. This v1.1 preview includes static optimized assets in `public/gallery/` only to simplify review.
+5. Verify desktop and mobile, switch English/Spanish, test CTAs and the contact form, then:
+
+   ```powershell
+   git add app/page.tsx app/globals.css
+   git commit -m "Early Bird v1.4.1 editorial visual refresh"
+   git push origin main
+   ```
+
+The installer modifies `app/page.tsx` and appends the v1.4.1 CSS to `app/globals.css`. It first validates known HTML patterns and refuses to run if the changes appear already applied. It creates `app/page.tsx.v140.bak` and `app/globals.css.v140.bak` locally; **don't commit backups**.
+
+## What changed
+
+- Cream editorial hero card over the existing real playground photo, with contrasting typography and trust chips.
+- Small separate brand message card on desktop.
+- Editorial Letty portrait framing (her biography and all existing editorial content are preserved).
+- Bilingual invitation-to-visit CTA immediately before the existing contact form.
+- Clearer section rhythm, restrained warm color accents and mobile breakpoints.
+
+## Important
+
+This package is based on the current **main branch** markup and assumes the unmodified v1.4 structure. If your local branch differs, the installer will stop rather than overwrite unrecognized markup. Nothing is uploaded or deployed automatically. The Cloudflare Turnstile feature branch remains separate and untouched.

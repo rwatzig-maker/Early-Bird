@@ -1,0 +1,51 @@
+/* Early Bird v1.4.1 — distinctive warm editorial identity */
+:root{--eb-ink:#303046;--eb-berry:#d65388;--eb-sage:#789c7d;--eb-butter:#efc45f;--eb-paper:#fffaf3}
+/* Override existing photo-overlay hero composition */
+.hero{position:relative!important;min-height:690px!important;overflow:hidden!important}
+.hero>img{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:cover!important}
+.heroShade{position:absolute!important;inset:0!important;background:linear-gradient(90deg,rgba(24,22,31,.36),rgba(24,22,31,.1))!important}
+.heroShell{position:relative!important;min-height:690px!important;display:grid!important;grid-template-columns:minmax(0,710px) minmax(180px,260px);align-items:end;justify-content:space-between;gap:28px;padding:68px max(6%,calc((100% - 1240px)/2)) 66px;z-index:2}
+.heroCard{color:var(--eb-ink)!important;background:rgba(255,251,244,.96);border:1px solid rgba(255,255,255,.72);border-radius:30px;padding:42px 44px 38px;box-shadow:0 26px 62px rgba(31,24,29,.19);backdrop-filter:blur(7px)}
+.heroCard h1{color:var(--eb-ink)!important;text-shadow:none!important;font-size:clamp(42px,4.7vw,70px)!important;line-height:1.04!important;letter-spacing:-.045em!important;margin:16px 0 18px;text-wrap:balance}
+.heroCard p{color:#514858!important;text-shadow:none!important;font-size:17px!important;line-height:1.68!important}
+.heroCard .heroEyebrow{color:#9d4d70!important}
+.heroCard .heroSun{color:var(--eb-butter)!important}
+.heroCard .heroTrustLine{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 23px}
+.heroCard .heroTrustLine span{font-size:12px;color:#554b5b!important;background:#fff;border:1px solid #eddcd9;border-radius:999px;padding:8px 11px;font-weight:800;line-height:1.3}
+.heroCard .heroTrustLine span:before{display:none!important}
+.heroCard .heroButtons{display:flex;flex-wrap:wrap;gap:12px}
+.heroCard .btnWhite{border:1px solid #e4d4cd!important;color:#74465f!important;background:#fff!important}
+.heroAccentCard{align-self:center;justify-self:end;max-width:260px;transform:rotate(3deg) translateY(18px);background:#fffaf0;border:1px solid #fff;border-radius:22px;padding:28px 24px;box-shadow:0 20px 48px rgba(29,25,34,.19)}
+.heroAccentCard:before{content:'✳';display:block;color:#e8b748;font-size:52px;line-height:1;margin-bottom:16px}
+.heroMiniBadge{font-size:12px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:#99627a;margin-bottom:12px}
+.heroMiniTitle{color:#45404d;font-size:23px;font-weight:900;line-height:1.3;letter-spacing:-.025em}
+/* Give section composition editorial rhythm */
+.why{background:linear-gradient(180deg,#fffaf4,#fffefb)!important}
+.features{gap:20px!important}
+.feature{background:#fffefa!important;border:1px solid #eae2de!important;border-radius:20px!important;box-shadow:0 9px 28px rgba(76,48,60,.035)!important}
+.feature:nth-child(2),.feature:nth-child(5){transform:translateY(13px)}
+.lettySection{position:relative!important;overflow:hidden;background:linear-gradient(118deg,#fff1e7 0%,#fff9f3 58%,#eaf2e8 100%)!important;gap:clamp(35px,5vw,75px)!important;padding-top:95px!important;padding-bottom:100px!important}
+.lettySection:after{content:'';position:absolute;pointer-events:none;z-index:0;width:370px;height:370px;right:-170px;top:-130px;border-radius:50%;border:2px solid rgba(217,99,138,.12)}
+.lettyPortraitWrap{position:relative;z-index:1;min-width:0;max-width:480px}
+.lettyPortraitWrap .lettyPortrait{background:#fae7e8!important;box-shadow:16px 16px 0 #dfeadb!important;transform:rotate(-2deg);border-radius:26px!important;padding:18px 18px 24px!important}
+.lettyPortraitWrap .lettyPhoto{border-radius:18px!important;width:100%;object-fit:cover}
+.lettyPortraitWrap .portraitFlourish{position:absolute!important;right:-12px;top:-25px;z-index:4;font-size:65px;color:#e5b64e}
+.lettyContent{position:relative;z-index:1}
+.lettyContent h2{font-size:clamp(34px,3.7vw,53px)!important;line-height:1.12!important;letter-spacing:-.035em!important;text-wrap:balance}
+.lettyContent blockquote{padding:20px 24px!important;background:rgba(255,255,255,.66)!important;border-left:4px solid #d65388!important;border-radius:0 14px 14px 0!important;font-size:19px!important}
+.mealSection{background:#fff3de!important}
+.gallerySection{background:#fffcf7!important}
+.reviewSection{background:#fff7f5!important}
+/* Visual pause before inquiry form */
+.tourCtaBand{padding:88px max(6%,calc((100% - 1150px)/2));background:#f8efe4}
+.tourCtaInner{position:relative;overflow:hidden;margin:0 auto;max-width:1080px;border-radius:34px;background:#fffdf8;border:1px solid #eadfce;padding:60px 65px;text-align:center;box-shadow:0 18px 44px rgba(77,53,51,.07)}
+.tourCtaInner:before,.tourCtaInner:after{content:'✳';position:absolute;pointer-events:none;color:#eac15e;font-size:110px;line-height:1;opacity:.4}
+.tourCtaInner:before{left:-12px;top:8px}.tourCtaInner:after{right:-6px;bottom:-18px;color:#8dad90}
+.tourCtaInner .eyebrow{color:#a25577}
+.tourCtaInner h2{max-width:760px;margin:15px auto;font-size:clamp(32px,4vw,51px);letter-spacing:-.04em;line-height:1.12;text-wrap:balance;color:#383144}
+.tourCtaInner p{max-width:650px;margin:0 auto;color:#625666;font-size:17px;line-height:1.7}
+.tourCtaButtons{margin-top:27px;display:flex;justify-content:center;gap:13px;flex-wrap:wrap}
+.tourCtaButtons .btnWhite{background:#fff!important;border:1px solid #e8dcd1!important;color:#68485c!important}
+@media(max-width:1000px){.heroShell{grid-template-columns:minmax(0,1fr);padding-top:45px;padding-bottom:50px}.heroAccentCard{display:none}.heroCard{max-width:720px}.feature:nth-child(2),.feature:nth-child(5){transform:none}}
+@media(max-width:760px){.hero,.heroShell{min-height:620px!important}.heroShell{padding:20px 5% 28px;align-items:end}.heroCard{padding:24px 22px 25px;border-radius:24px}.heroCard h1{font-size:clamp(34px,8.8vw,53px)!important}.heroCard p{font-size:15px!important;line-height:1.57!important}.heroCard .heroTrustLine{margin:14px 0 18px}.heroCard .heroTrustLine span{font-size:11px;padding:6px 9px}.lettySection{padding-top:60px!important;padding-bottom:65px!important}.lettyPortraitWrap{margin:0 auto 14px;width:100%;max-width:460px}.lettyPortraitWrap .lettyPortrait{transform:none;box-shadow:9px 9px 0 #dfeadb!important}.lettyPortraitWrap .portraitFlourish{font-size:45px;right:0;top:-20px}.tourCtaBand{padding:60px 5%}.tourCtaInner{padding:40px 21px;border-radius:24px}.tourCtaInner:before,.tourCtaInner:after{font-size:65px;opacity:.2}}
+@media(prefers-reduced-motion:reduce){.heroCard,.heroAccentCard,.lettyPortraitWrap .lettyPortrait{transition:none!important}}
