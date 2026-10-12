@@ -1,215 +1,54 @@
+"use client";
+
+import { useState } from "react";
 import ContactForm from "./ContactForm";
-import CurrentYear from "./CurrentYear";
 
-export default function Home() {
-  return (
-    <main>
-      <header className="siteHeader">
-        <a className="brand" href="#top" aria-label="Early Bird Child Care home">
-          <img src="/early-bird-logo.png" alt="Early Bird Child Care logo" />
-          <span>Early Bird Child Care</span>
-        </a>
-
-        <nav>
-          <a href="#program">Child Care</a>
-          <a href="#hours">Hours</a>
-          <a href="#spanish">Español</a>
-          <a href="#contact">Contact</a>
-        </nav>
-
-        <a className="headerCta" href="tel:5034210600">
-          (503) 421-0600
-        </a>
-      </header>
-
-      <section className="hero" id="top">
-        <img
-          className="heroPhoto"
-          src="/early-bird-hero.png"
-          alt="Early Bird Child Care outdoors in Sandy, Oregon"
-        />
-
-        <div className="heroFade" />
-
-        <div className="heroCopy">
-          <div className="sunDoodle" aria-hidden="true">
-            <span />
-          </div>
-
-          <h1>Warm, family-like child care in Sandy</h1>
-
-          <p className="heroLead">
-            Now accepting infants, toddlers, and preschoolers.
-          </p>
-
-          <a className="primary" href="#contact">
-            Message me for more information!
-          </a>
-        </div>
-      </section>
-
-      <section className="infoBar" aria-label="Early Bird Child Care highlights">
-        <span>ERDC accepted</span>
-        <i aria-hidden="true" />
-        <span>Se Habla Español</span>
-        <i aria-hidden="true" />
-        <span>Monday–Friday, 6:30 AM–6:00 PM</span>
-        <i aria-hidden="true" />
-        <span>Safe, loving, family-like environment</span>
-      </section>
-
-      <section className="programSection" id="program">
-        <div className="programHeading">
-          <h2>Child care for infants, toddlers, and young children</h2>
-          <div className="scribble" aria-hidden="true" />
-        </div>
-
-        <div className="playGrid">
-          <article className="playCard playCardCoral">
-            <div className="cardIcon" aria-hidden="true">
-              <svg viewBox="0 0 64 64">
-                <path d="M14 18h23a9 9 0 0 1 9 9v8a9 9 0 0 1-9 9H27l-11 8v-8h-2a9 9 0 0 1-9-9v-8a9 9 0 0 1 9-9Z" />
-                <path d="M31 11h18a9 9 0 0 1 9 9v7a9 9 0 0 1-9 9h-2" />
-              </svg>
-            </div>
-            <h3>Spanish &amp; English bilingual immersion program</h3>
-            <span className="cardDot" />
-          </article>
-
-          <article className="playCard playCardYellow">
-            <div className="cardIcon" aria-hidden="true">
-              <svg viewBox="0 0 64 64">
-                <rect x="8" y="31" width="18" height="18" rx="3" />
-                <rect x="27" y="20" width="18" height="18" rx="3" />
-                <rect x="40" y="38" width="16" height="16" rx="3" />
-                <circle cx="16" cy="18" r="7" />
-              </svg>
-            </div>
-            <h3>Play-based learning and age-appropriate activities</h3>
-            <span className="cardStar">✦</span>
-          </article>
-
-          <article className="playCard playCardBlue">
-            <div className="cardIcon" aria-hidden="true">
-              <svg viewBox="0 0 64 64">
-                <path d="M32 53S9 40 9 23c0-8 6-13 13-13 5 0 9 3 10 7 2-4 6-7 11-7 7 0 13 5 13 13 0 17-24 30-24 30Z" />
-              </svg>
-            </div>
-            <h3>Safe, loving, and family-friendly environment</h3>
-            <span className="cardLine" />
-          </article>
-
-          <article className="playCard playCardMint">
-            <div className="cardIcon" aria-hidden="true">
-              <svg viewBox="0 0 64 64">
-                <path d="M32 55V29" />
-                <path d="M32 31C17 31 10 23 10 11c15 0 22 7 22 20Z" />
-                <path d="M32 39c15 0 22-8 22-20-15 0-22 7-22 20Z" />
-              </svg>
-            </div>
-            <h3>Outdoor play area</h3>
-            <span className="cardSun" />
-          </article>
-        </div>
-      </section>
-
-      <section className="outdoorSection" id="hours">
-        <div className="outdoorPhoto">
-          <img src="/early-bird-hero.png" alt="Large green outdoor area" />
-          <div className="photoRibbon">Outdoor play area</div>
-        </div>
-
-        <div className="outdoorCopy">
-          <h2>Large green outdoor areas, and a new playground opening soon.</h2>
-
-          <div className="hoursCard">
-            <div className="hoursRow">
-              <span>Monday–Friday</span>
-              <strong>6:30 AM–6:00 PM</strong>
-            </div>
-            <div className="hoursRow">
-              <span>Saturday</span>
-              <strong>Closed</strong>
-            </div>
-            <div className="hoursRow">
-              <span>Sunday</span>
-              <strong>Closed</strong>
-            </div>
-          </div>
-
-          <p className="transportText">
-            The Oregon Trail School District works well with transportation, and the
-            Firwood bus stops right in front of our home, making drop-off and pick-up easy.
-          </p>
-
-          <div className="erTag">ERDC accepted</div>
-        </div>
-      </section>
-
-      <section className="spanishSection" id="spanish">
-        <div className="spanishTitle">
-          <h2>Cuidado para bebés, toddlers y niños pequeños</h2>
-        </div>
-
-        <div className="spanishList">
-          <div>Programa de inmersión bilingüe Español 🇲🇽 / Inglés 🇺🇸</div>
-          <div>Aprendizaje a través del juego y actividades apropiadas para cada edad</div>
-          <div>Ambiente familiar, seguro y acogedor</div>
-          <div>Espacio de juego al aire libre</div>
-          <div>Lunes a viernes, 6:30 AM–6:00 PM</div>
-          <div>Aceptamos ERDC</div>
-        </div>
-      </section>
-
-      <section className="contact contactFormSection" id="contact">
-        <div className="contactBurst contactBurstOne" aria-hidden="true" />
-        <div className="contactBurst contactBurstTwo" aria-hidden="true" />
-
-        <div className="contactIntro">
-          <h2>Message me for more information!</h2>
-          <p>
-            Have a question about openings, hours, ERDC, or child care? Send a message below.
-          </p>
-
-          <div className="contactDirect">
-            <a href="tel:5034210600">
-              <span>Phone</span>
-              <strong>(503) 421-0600</strong>
-            </a>
-
-            <a href="https://maps.google.com/?q=41361+SE+Vista+Loop+Dr+Sandy+OR+97055">
-              <span>Address</span>
-              <strong>41361 SE Vista Loop Dr, Sandy, OR 97055</strong>
-            </a>
-          </div>
-        </div>
-
-        <ContactForm />
-      </section>
-
-      <footer className="siteFooter">
-        <div className="footerTop">
-          <div className="brand footerBrand">
-            <img src="/early-bird-logo.png" alt="" />
-            <span>Early Bird Child Care</span>
-          </div>
-          <span>Sandy, Oregon</span>
-        </div>
-
-        <div className="footerBottom">
-          <span>© <CurrentYear /> Early Bird Child Care</span>
-          <span>
-            Website designed and hosted by{" "}
-            <a
-              href="https://digital.rudie.org"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Rudie Digital
-            </a>
-          </span>
-        </div>
-      </footer>
-    </main>
-  );
+const gallery = [
+  { file:"IMG_3669", en:"Our spacious playground", es:"Nuestro amplio patio de juegos", kind:"playground" },
+  { file:"IMG_3096", en:"Exploring the big outdoor playground", es:"Explorando nuestro gran patio de juegos", kind:"playground" },
+  { file:"IMG_3102", en:"Playtime with a helping hand", es:"Jugando con el apoyo de nuestros cuidadores", kind:"playground" },
+  { file:"IMG_3666", en:"Sliding into an adventure", es:"Aventuras en el tobogán", kind:"playground" },
+  { file:"IMG_4308", en:"Creative art activities", es:"Actividades artísticas y creativas", kind:"learning" },
+  { file:"IMG_4012", en:"Exploring shapes and colors", es:"Explorando formas y colores", kind:"learning" },
+  { file:"IMG_4508", en:"Learning through imaginative play", es:"Aprendiendo con juegos imaginativos", kind:"learning" },
+  { file:"IMG_4869", en:"A cozy reading corner", es:"Un rincón acogedor para leer", kind:"learning" },
+  { file:"IMG_5811", en:"Outdoor fun in the sunshine", es:"Diversión al aire libre bajo el sol", kind:"playground" },
+  { file:"IMG_6275", en:"Learning and playing in the sand", es:"Aprendiendo y jugando en la arena", kind:"playground" },
+  { file:"IMG_6653", en:"Hands-on outdoor discovery", es:"Descubriendo el mundo al aire libre", kind:"playground" },
+  { file:"IMG_6654", en:"Playing together", es:"Jugando juntos", kind:"playground" },
+  { file:"IMG_6655", en:"Every day brings a new discovery", es:"Cada día trae un nuevo descubrimiento", kind:"playground" },
+];
+const reviews = [
+ {name:"Alexandra MacIsaac", en:"They enjoyed different activities, going outdoors, cooking meals, and small field trips. It's a family style vibe and my children always felt welcome.", es:"Disfrutaban de diferentes actividades, salían al aire libre, cocinaban y hacían pequeñas excursiones. El ambiente es familiar y mis hijos siempre se sintieron bienvenidos."},
+ {name:"Archanaa Sundraraj", en:"More than anything, I see how excited my kid is when he's there. He's engaged in activities with other kids throughout the day, and has a huge smile on his face at dropoff and pickup.", es:"Sobre todo, veo lo emocionado que está mi hijo cuando va. Participa en actividades con otros niños durante todo el día y sonríe muchísimo al llegar y al salir."},
+ {name:"Emelia Wessel", en:"It is a bilingual daycare with English and Spanish.", es:"Es una guardería bilingüe, en inglés y español."},
+ {name:"Diana Valencia", en:"Her daycare is a welcoming home, that doesn't look like any regular daycare it looks like a home safe for your child, as they were in their own home.", es:"Su guardería es un hogar acogedor. No parece una guardería común, sino un hogar seguro para los niños, como si estuvieran en su propia casa."},
+];
+const copy = {
+ en:{nav:["Why Early Bird","Our Day","Gallery","Reviews","Contact"],banner:"A place to play, learn and belong — ask us about enrollment!",tag:"Sandy, Oregon • Family child care",hero:"Big adventures. Little moments. A second home.",lead:"Real play. Genuine care. A place where children can learn, explore, and feel right at home.",tour:"Schedule a tour",explore:"Discover our day",trust:"A warm home. A world of discovery.",sub:"More than child care — days filled with connection, curiosity, and joy.",features:[ ["🌎","Spanish & English","A bilingual environment where language is part of everyday life."],["🛝","Room to explore","A large outdoor playground with space to move and play."],["🎨","Hands-on activities","Art, books, creative play and age-appropriate discovery."],["🍎","Home-cooked meals","Healthy, comforting meals prepared with care."],["💗","A familiar, caring team","Three consistent adults offering attentive, family-style care."],["🏡","Certified family child care","A licensed home-based setting serving infants through school-age children."]],dayLabel:"A day at Early Bird",dayTitle:"Not just watching the clock. Making memories.",dayText:"From creative projects and stories to movement, outdoor play and learning together, children have room to be curious, active and themselves.",moments:["Create & imagine","Read & discover","Run & explore"],playLabel:"Space to be a kid",playTitle:"The playground is just the beginning.",playText:"Plenty of room for climbing, sliding, sand play, imagination and adventures with friends — right outside our door.",galleryLabel:"A peek inside our days",galleryTitle:"The little moments that matter",all:"All photos",outdoor:"Outdoor play",learning:"Learning & creativity",more:"View all photos",less:"Show fewer",reviewsLabel:"Kind words from families",reviewsTitle:"Loved by local parents",reviewNote:"Excerpts from genuine Google reviews. Spanish translations are provided for convenience; original reviews are in English.",google:"Find us on Google",hoursTitle:"Hours & enrollment",hoursIntro:"Early mornings, happy days, and a caring team ready to welcome your family.",week:"Monday – Friday",time:"5:30 AM – 6:00 PM",sat:"Saturday",satValue:"By arrangement",sun:"Sunday",closed:"Closed",age:"Ages 3 months – 12 years",erdc:"ERDC accepted",contactLabel:"Let's get acquainted",contactTitle:"Come see what makes Early Bird special.",contactText:"Ask about availability or schedule a visit. We’d love to meet your family.",address:"Sandy, Oregon",phone:"Call us",footer:"Care, creativity, and a sense of belonging."},
+ es:{nav:["Por qué elegirnos","Nuestro día","Galería","Reseñas","Contacto"],banner:"Un lugar para jugar, aprender y sentirse en familia. ¡Pregúntanos por las inscripciones!",tag:"Sandy, Oregón • Cuidado infantil familiar",hero:"Grandes aventuras. Pequeños momentos. Un segundo hogar.",lead:"Juegos de verdad. Cariño sincero. Un lugar donde los niños aprenden, exploran y se sienten como en casa.",tour:"Agenda una visita",explore:"Conoce nuestro día",trust:"La calidez del hogar. Un mundo por descubrir.",sub:"Más que cuidado infantil: días llenos de cariño, curiosidad y alegría.",features:[["🌎","Español e inglés","Un ambiente bilingüe donde los idiomas son parte de la vida diaria."],["🛝","Espacio para explorar","Un gran patio de juegos para moverse y divertirse."],["🎨","Actividades prácticas","Arte, libros, juegos creativos y descubrimientos para cada edad."],["🍎","Comidas caseras","Comidas saludables y reconfortantes, preparadas con cariño."],["💗","Un equipo cercano","Tres adultos que brindan atención constante, cariñosa y familiar."],["🏡","Cuidado infantil familiar certificado","Un entorno familiar autorizado para bebés y niños de edad escolar."]],dayLabel:"Un día en Early Bird",dayTitle:"No solo cuidamos niños. Creamos recuerdos.",dayText:"Entre arte, cuentos, movimiento, juegos al aire libre y aprendizaje compartido, cada niño puede explorar, mantenerse activo y ser él mismo.",moments:["Crear e imaginar","Leer y descubrir","Correr y explorar"],playLabel:"Espacio para ser niño",playTitle:"El patio de juegos es solo el comienzo.",playText:"Un gran espacio para trepar, deslizarse, jugar con arena, imaginar y vivir aventuras con amigos, justo afuera de nuestra puerta.",galleryLabel:"Un vistazo a nuestros días",galleryTitle:"Los pequeños momentos que importan",all:"Todas las fotos",outdoor:"Juegos al aire libre",learning:"Aprendizaje y creatividad",more:"Ver todas las fotos",less:"Ver menos",reviewsLabel:"Palabras de nuestras familias",reviewsTitle:"Las familias locales nos recomiendan",reviewNote:"Extractos de reseñas auténticas de Google. Las traducciones al español son de referencia; las reseñas originales están en inglés.",google:"Encuéntranos en Google",hoursTitle:"Horarios e inscripciones",hoursIntro:"Mañanas tempranas, días felices y un equipo listo para recibir a tu familia.",week:"Lunes a viernes",time:"5:30 a. m. – 6:00 p. m.",sat:"Sábado",satValue:"Con previo acuerdo",sun:"Domingo",closed:"Cerrado",age:"De 3 meses a 12 años",erdc:"Aceptamos ERDC",contactLabel:"Conozcámonos",contactTitle:"Ven a conocer lo especial que es Early Bird.",contactText:"Pregunta por disponibilidad o programa una visita. Nos encantará conocer a tu familia.",address:"Sandy, Oregón",phone:"Llámanos",footer:"Cariño, creatividad y sentido de pertenencia."}
+};
+export default function Home(){
+ const [lang,setLang]=useState<"en"|"es">("en");
+ const [filter,setFilter]=useState("all");
+ const [expanded,setExpanded]=useState(false);
+ const [reviewIndex,setReviewIndex]=useState(0);
+ const [lightbox,setLightbox]=useState<string|null>(null);
+ const t=copy[lang];
+ const selected=gallery.filter(p=>filter==="all"||p.kind===filter);
+ const shown=expanded?selected:selected.slice(0,6);
+ return <main id="top" lang={lang}>
+  <header className="siteHeader"><a className="brand" href="#top"><img src="/early-bird-logo.png" alt="Early Bird Child Care"/><span>Early Bird <b>Child Care</b></span></a><nav aria-label="Primary navigation">{["why","day","gallery","reviews","contact"].map((id,i)=><a href={'#'+id} key={id}>{t.nav[i]}</a>)}</nav><div className="headerActions"><button className="langToggle" onClick={()=>setLang(lang==="en"?"es":"en")} aria-label={lang==="en"?"Switch to Spanish":"Cambiar a inglés"}>{lang==="en"?"Español 🇲🇽":"English 🇺🇸"}</button><a className="headerCall" href="tel:5034210600">Call us ↗</a></div></header>
+  <div className="announcement" role="status"><span className="twinkle">✦</span>{t.banner}<span className="twinkle">✦</span></div>
+  <section className="hero"><img src="/gallery/IMG_3669.webp" alt={lang==="en"?"The large Early Bird outdoor playground":"El gran patio de juegos de Early Bird"}/><div className="heroShade"/><div className="heroContent"><span className="eyebrow heroEyebrow">☀ {t.tag}</span><h1>{t.hero}</h1><p>{t.lead}</p><div className="heroButtons"><a className="btn btnPink" href="#contact">{t.tour} <span>↗</span></a><a className="btn btnWhite" href="#day">{t.explore} ↓</a></div></div></section>
+  <section id="why" className="section why"><div className="sectionHeading"><span className="eyebrow">✺ EARLY BIRD CHILD CARE ✺</span><h2>{t.trust}</h2><p>{t.sub}</p></div><div className="features">{t.features.map(([emoji,title,desc],i)=><article className={'feature feature'+i} key={title}><div className="featureIcon">{emoji}</div><h3>{title}</h3><p>{desc}</p></article>)}</div></section>
+  <section id="day" className="daySection"><div className="dayText"><span className="eyebrow">{t.dayLabel}</span><h2>{t.dayTitle}</h2><p>{t.dayText}</p><div className="momentList">{t.moments.map((m,i)=><span key={m}><b>{["🎨","📚","🌿"][i]}</b>{m}</span>)}</div></div><div className="dayPhotos"><img className="dayMain" src="/gallery/IMG_4308.webp" alt="Children making colorful art with a caregiver"/><img className="daySmall" src="/gallery/IMG_4869.webp" alt="Child reading in the book corner"/></div></section>
+  <section className="playSection"><div className="playImage"><img src="/gallery/IMG_3096.webp" alt="Children exploring the outdoor play structure"/></div><div className="playCopy"><span className="eyebrow">{t.playLabel}</span><h2>{t.playTitle}</h2><p>{t.playText}</p><a href="#gallery" className="textLink">{t.nav[2]} →</a></div></section>
+  <section id="gallery" className="section gallerySection"><div className="sectionHeading"><span className="eyebrow">{t.galleryLabel}</span><h2>{t.galleryTitle}</h2></div><div className="galleryFilters">{[["all",t.all],["playground",t.outdoor],["learning",t.learning]].map(([v,label])=><button key={v} className={filter===v?"active":""} onClick={()=>{setFilter(v);setExpanded(false)}}>{label}</button>)}</div><div className="photoGrid">{shown.map((p,i)=><button className={'photoTile '+(i===0?'featuredTile':'')} key={p.file} onClick={()=>setLightbox(p.file)} aria-label={p[lang]}><img loading="lazy" src={'/gallery/'+p.file+'.webp'} alt={p[lang]}/><span>{p[lang]} ↗</span></button>)}</div>{selected.length>6&&<button className="showMore" onClick={()=>setExpanded(!expanded)}>{expanded?t.less:t.more} {expanded?'↑':'↓'}</button>}<p className="galleryCaption">{lang==="en"?"Photo gallery: 13 of 40 available slots":"Galería: 13 de 40 espacios disponibles"}</p></section>
+  <section id="reviews" className="reviewSection"><span className="eyebrow">{t.reviewsLabel}</span><h2>{t.reviewsTitle}</h2><div className="reviewCard"><div className="stars" aria-label="5 out of 5 stars">★★★★★</div><blockquote>“{reviews[reviewIndex][lang]}”</blockquote><div className="reviewBottom"><div><strong>{reviews[reviewIndex].name}</strong><small>Google review {lang==="es"?"· Traducido del inglés":"· 5 stars"}</small></div><div className="reviewArrows"><button onClick={()=>setReviewIndex((reviewIndex+3)%4)} aria-label="Previous review">←</button><button onClick={()=>setReviewIndex((reviewIndex+1)%4)} aria-label="Next review">→</button></div></div></div><div className="reviewDots">{reviews.map((r,i)=><button aria-label={'Review '+(i+1)} aria-current={i===reviewIndex} className={i===reviewIndex?'active':''} key={r.name} onClick={()=>setReviewIndex(i)}/>)}</div><p className="reviewDisclaimer">{t.reviewNote}</p><a className="textLink" href="https://www.google.com/maps/search/?api=1&query=Early+Bird+Childcare+Sandy+Oregon" target="_blank" rel="noreferrer">{t.google} ↗</a></section>
+  <section className="hoursSection" id="hours"><div><span className="eyebrow">{t.hoursTitle}</span><h2>{t.hoursIntro}</h2><div className="hoursList"><div><span>{t.week}</span><strong>{t.time}</strong></div><div><span>{t.sat}</span><strong>{t.satValue}</strong></div><div><span>{t.sun}</span><strong>{t.closed}</strong></div></div><div className="hourPills"><span>✓ {t.age}</span><span>✓ {t.erdc}</span></div></div><img src="/gallery/IMG_4508.webp" alt="Child engaged in imaginative play"/></section>
+  <section className="contactSection" id="contact"><div className="contactInfo"><span className="eyebrow">{t.contactLabel}</span><h2>{t.contactTitle}</h2><p>{t.contactText}</p><a href="tel:5034210600" className="contactDetail">☎ &nbsp; (503) 421-0600</a><a href="https://maps.google.com/?q=41361+SE+Vista+Loop+Dr+Sandy+OR+97055" target="_blank" rel="noreferrer" className="contactDetail">⌖ &nbsp; 41361 SE Vista Loop Dr, Sandy, OR</a></div><ContactForm lang={lang}/></section>
+  <footer className="footer"><img src="/early-bird-logo.png" alt="Early Bird Child Care"/><p>{t.footer}</p><div>© {new Date().getFullYear()} Early Bird Child Care · Sandy, OR <span>Website by <a href="https://rudie.org" target="_blank" rel="noreferrer">Rudie Digital</a></span></div></footer>
+  {lightbox&&<div className="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" onClick={()=>setLightbox(null)}><button aria-label="Close photo" onClick={()=>setLightbox(null)}>✕</button><img src={'/gallery/'+lightbox+'.webp'} alt="Early Bird gallery enlarged"/></div>}
+ </main>
 }
