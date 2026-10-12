@@ -38,3 +38,28 @@
 
 /* Letty portrait */
 .lettyPortrait{overflow:hidden}.lettyPhoto{width:100%;max-height:560px;object-fit:cover;object-position:center 25%;border-radius:22px;margin-bottom:12px}.lettyPortrait:has(.lettyPhoto:not([style*="display: none"])) {background:#fff2f6}
+
+/* v1.3 design refinement: quiet typography, consistent drawn icons, less templated UI */
+.why .eyebrow{letter-spacing:.13em}
+.features{gap:15px}
+.feature{background:#fff!important;border:1px solid #ece7e2!important;border-radius:18px!important;box-shadow:none!important;transition:transform .2s ease,border-color .2s ease}
+.feature:hover{transform:translateY(-2px);border-color:#d5b9c7!important}
+.featureIcon{display:flex;align-items:center;justify-content:flex-start;color:#9a4574;background:transparent!important;font-size:inherit!important;width:auto!important;height:38px!important}
+.featureIcon svg{display:block}
+.feature h3{letter-spacing:-.02em}
+.quickIcon{color:#995076;background:#f7eef3;border-radius:13px;font-size:inherit}
+.quickIcon svg{display:block}
+.quickInfoItem{border-radius:0}
+.quickInfoItem:hover{background:#faf7f4}
+.hourPills{gap:10px;align-items:center}
+.hourPills span{background:#fffdf9!important;border:1px solid #dfd9d0!important;border-radius:9px!important;padding:9px 13px!important;box-shadow:none!important;color:#49434a!important;font-size:13px!important;letter-spacing:0!important;font-weight:600!important}
+.tuitionCard{margin-top:23px;padding:20px 23px;max-width:590px;background:#fffaf2;border:1px solid #e5ddd0;border-radius:14px}
+.tuitionCard strong{display:block;font-family:Nunito,sans-serif;font-size:19px;margin-bottom:6px;color:#302c38}
+.tuitionCard p{line-height:1.7;margin:0 0 10px;color:#5e5660;font-size:15px}
+.tuitionCard a{display:inline-block;text-decoration:underline;text-underline-offset:4px;color:#884a70;font-weight:700;font-size:14px}
+.mealIllustration{background:#f0e6dc;border-radius:18px;min-height:350px;overflow:hidden}
+.mealIllustration img{width:100%;height:100%;min-height:350px;object-fit:cover}
+.momentList b{display:inline-flex;align-items:center}
+.contactDetail{display:flex;align-items:center;gap:4px}
+.lettyFacts span{border-radius:9px;background:#fffaf6}
+@media(max-width:760px){.mealIllustration,.mealIllustration img{min-height:250px}.tuitionCard{padding:17px}.features{gap:12px}}
