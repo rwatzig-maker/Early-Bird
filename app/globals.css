@@ -81,3 +81,10 @@
 .momentList>span>b{flex:0 0 52px;min-width:52px;width:52px;height:52px;overflow:hidden;color:#915279;font-size:initial}
 .momentList>span>b svg{display:block;flex-shrink:0}
 .momentList .momentText{flex:1;min-width:0;overflow-wrap:break-word;line-height:1.45}
+
+/* Activity illustrations: friendly color, consistent visual centering */
+.momentList>span>b.activityIllustration{display:flex!important;align-items:center!important;justify-content:center!important;flex:0 0 56px!important;width:56px!important;height:56px!important;min-width:56px!important;border-radius:16px!important;font-size:28px!important;font-weight:400!important;line-height:1!important;text-align:center!important;overflow:visible!important;font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif}
+.activityIllustration0{background:#ffe7ee!important}
+.activityIllustration1{background:#e7ecff!important}
+.activityIllustration2{background:#e6f5e8!important}
+.momentList .momentText{align-self:center}
