@@ -1,4 +1,27 @@
 import {NextResponse} from 'next/server';
+import {createHash} from 'node:crypto';
+
+// Distributed per-IP limit; shared Redis state works across Vercel instances.
+// An atomic Lua script increments and sets expiry on first request.
+async function enforceRateLimit(req:Request):Promise<'ok'|'limited'|'unavailable'>{
+ const url=process.env.UPSTASH_REDIS_REST_URL;
+ const token=process.env.UPSTASH_REDIS_REST_TOKEN;
+ const salt=process.env.RATE_LIMIT_IP_SALT;
+ if(!url||!token||!salt)return 'unavailable';
+ const forwarded=req.headers.get('x-vercel-forwarded-for') || req.headers.get('x-forwarded-for') || '';
+ const ip=forwarded.split(',')[0]?.trim() || req.headers.get('x-real-ip') || '';
+ if(!ip)return 'unavailable';
+ const key='earlybird:contact:ip:'+createHash('sha256').update(salt+':'+ip).digest('hex');
+ const script="local n=redis.call('INCR',KEYS[1]); if n==1 then redis.call('EXPIRE',KEYS[1],ARGV[1]) end; return n";
+ try{
+  const response=await fetch(url.replace(/\\/$/,'') ,{method:'POST',headers:{Authorization:'Bearer '+token,'Content-Type':'application/json'},body:JSON.stringify(['EVAL',script,'1',key,'600']),signal:AbortSignal.timeout(4000),cache:'no-store'});
+  if(!response.ok)return 'unavailable';
+  const result: {result?:number;error?:string}=await response.json();
+  if(result.error||typeof result.result!=='number')return 'unavailable';
+  return result.result>8?'limited':'ok';
+ }catch{return 'unavailable'}
+}
+
 export const runtime='nodejs';
 export async function POST(req:Request){
  const key=process.env.RESEND_API_KEY;const from=process.env.CONTACT_FROM_EMAIL;const to=process.env.CONTACT_TO_EMAIL;
@@ -27,6 +50,9 @@ export async function POST(req:Request){
  }catch{return NextResponse.json({error:'Verification unavailable'},{status:503});}
  if(!verified)return NextResponse.json({error:'Human verification failed'},{status:403});
  if(data.website)return NextResponse.json({ok:true});
+ const rate=await enforceRateLimit(req);
+ if(rate==='limited')return NextResponse.json({error:'Too many requests. Please try again later.'},{status:429,headers:{'Retry-After':'600'}});
+ if(rate==='unavailable')return NextResponse.json({error:'Contact service temporarily unavailable'},{status:503});
  const name=String(data.name||'').trim(),email=String(data.email||'').trim(),phone=String(data.phone||'').trim(),message=String(data.message||'').trim();
  const inquiryType=String(data.inquiryType||'other'),careType=String(data.careType||'unsure');
  if(!['tour','availability','tuition','other'].includes(inquiryType)||!['unsure','infant','toddler','preschool'].includes(careType))return NextResponse.json({error:'Invalid inquiry selection'},{status:400});
