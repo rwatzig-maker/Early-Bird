@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import Script from "next/script";
 
-const siteUrl = "https://daycare.rudie.org";
+const siteUrl = "https://www.earlybirdchildcarellc.com";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: "Early Bird Child Care | Bilingual Daycare in Sandy, OR",
@@ -45,9 +46,12 @@ const childcare = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
   return (
     <html lang="en">
       <body>
+        {gaId && <Script src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} strategy="afterInteractive" />}
+        {gaId && <Script id="early-bird-ga4" strategy="afterInteractive">{`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${gaId}');`}</Script>}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(childcare).replace(/</g,"\\u003c") }} />
         {children}
       </body>
