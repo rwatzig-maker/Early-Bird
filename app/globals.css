@@ -244,7 +244,7 @@ body{background:var(--paper)}
 .lettyPortraitWrap .lettyPortrait:after{content:"";position:absolute;width:75px;height:75px;bottom:-36px;left:-32px;background:#f1c75c;border-radius:50%;z-index:-1}
 .lettyContent blockquote{border:0!important;border-radius:20px!important;padding:29px 31px!important;background:#fffefa!important;box-shadow:7px 8px 0 #e6dbe9!important;color:#674e70!important}
 .dayPhotos{position:relative}
-.dayPhotos:after{content:"✳";position:absolute;right:-12px;top:-25px;color:#e5b553;font-size:53px;pointer-events:none}
+.dayPhotos:after{content:"✳︎";position:absolute;right:-12px;top:-25px;color:#e5b553;font-size:53px;pointer-events:none}
 .playImage{position:relative}
 .playImage:before{content:"";position:absolute;inset:12px -13px -13px 13px;border:3px solid rgba(113,154,118,.52);border-radius:22px;pointer-events:none}
 .mealIllustration{border:8px solid rgba(255,255,255,.7);transform:rotate(-1deg);box-shadow:15px 17px 0 rgba(226,184,102,.25)!important}
