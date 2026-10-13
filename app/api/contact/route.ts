@@ -14,7 +14,7 @@ async function enforceRateLimit(req:Request):Promise<'ok'|'limited'|'unavailable
  const key='earlybird:contact:ip:'+createHash('sha256').update(salt+':'+ip).digest('hex');
  const script="local n=redis.call('INCR',KEYS[1]); if n==1 then redis.call('EXPIRE',KEYS[1],ARGV[1]) end; return n";
  try{
-  const response=await fetch(url.replace(/\\/$/,'') ,{method:'POST',headers:{Authorization:'Bearer '+token,'Content-Type':'application/json'},body:JSON.stringify(['EVAL',script,'1',key,'600']),signal:AbortSignal.timeout(4000),cache:'no-store'});
+  const response=await fetch(url.replace(/\/$/,'') ,{method:'POST',headers:{Authorization:'Bearer '+token,'Content-Type':'application/json'},body:JSON.stringify(['EVAL',script,'1',key,'600']),signal:AbortSignal.timeout(4000),cache:'no-store'});
   if(!response.ok)return 'unavailable';
   const result: {result?:number;error?:string}=await response.json();
   if(result.error||typeof result.result!=='number')return 'unavailable';
