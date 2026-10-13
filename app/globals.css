@@ -359,3 +359,9 @@ body{background:var(--paper)}
 
 /* Keep ornamental stars typographic on iOS rather than glossy emoji buttons. */
 .heroSun,.whyPhotoSun,.whyStoryMark,.portraitFlourish,.heroAccentCard::before,.tourCtaInner::before,.tourCtaInner::after,.dayPhotos::after{font-family:Arial,Helvetica,sans-serif!important;font-variant-emoji:text;font-style:normal}
+
+/* Playground coverage and community video links */
+.communityMediaLinks{display:grid;gap:10px;margin:20px 0 2px;width:100%}
+.communityMediaLinks a{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid #cce0d2;border-radius:12px;padding:13px 15px;font-weight:800;color:#71406c;font-size:14px;line-height:1.4;transition:border-color .2s,background .2s}
+.communityMediaLinks a:hover,.communityMediaLinks a:focus-visible{background:#fff7fa;border-color:#b870a1}
+.communityMediaLinks a span{display:grid;place-items:center;flex:0 0 32px;height:32px;border-radius:50%;background:#f7e7ef;color:#9d3d7b}
