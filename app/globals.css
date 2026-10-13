@@ -320,3 +320,14 @@ body{background:var(--paper)}
  .siteHeader .brand img{width:82px!important;height:82px!important;object-fit:contain}
  .siteHeader .brand{gap:8px}
 }
+
+/* Clear, welcoming bilingual tuition schedule */
+.tuitionRates{max-width:100%;min-width:0;text-align:left}
+.tuitionRates .eyebrow{color:#964069}
+.tuitionRates h3{font:900 clamp(22px,2.1vw,29px)/1.2 Nunito,sans-serif;color:#303046;margin:9px 0 12px}
+.tuitionRates>p{color:#564f5f;line-height:1.65;margin:0 0 16px}
+.tuitionRows{border-top:1px solid #e5d7cf;margin:16px 0}
+.tuitionRow{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:10px 0;border-bottom:1px solid #e5d7cf;color:#353146;font-size:15px}
+.tuitionRow strong{white-space:nowrap;color:#903d69;font-size:19px;font-weight:900}
+.tuitionRates .tuitionFootnote{font-size:13px;line-height:1.65;color:#625667;margin:12px 0 18px}
+@media(max-width:760px){.tuitionRow{font-size:14px}.tuitionRow strong{font-size:17px}}
