@@ -5,10 +5,11 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "test:security": "tsc app/api/contact/requestBody.ts app/api/contact/rateLimit.ts app/api/contact/emailTemplates.ts app/api/contact/route.ts --outDir node_modules/.security-test-build --module commonjs --target es2022 --esModuleInterop --skipLibCheck && node --test tests/contact-security.cjs"
   },
   "dependencies": {
-    "next": "16.3.4",
+    "next": "16.3.8",
     "react": "19.2.0",
     "react-dom": "19.2.0"
   },

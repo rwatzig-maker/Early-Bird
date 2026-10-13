@@ -41,3 +41,22 @@ The installer modifies `app/page.tsx` and appends the v1.4.1 CSS to `app/globals
 ## Important
 
 This package is based on the current **main branch** markup and assumes the unmodified v1.4 structure. If your local branch differs, the installer will stop rather than overwrite unrecognized markup. Nothing is uploaded or deployed automatically. The Cloudflare Turnstile feature branch remains separate and untouched.
+
+## Contact security
+
+The contact endpoint accepts only JSON objects with string fields and reads at
+most 16 KiB, including requests without a Content-Length header. Turnstile
+hostname/action checks and a shared eight-attempts-per-IP/ten-minutes limit remain
+mandatory. Verified, valid submissions reserve an atomic Redis budget of three
+attempts per recipient per UTC day and 100 submissions (at most 200 emails) per
+UTC day. Provider failures retain reservations. Redis failure blocks sending;
+limited visitors are directed to call. Keys contain salted recipient hashes,
+not email addresses. No additional environment variables are required.
+
+Run `npm run test:security` for mocked rejection/success-path checks. These tests
+never contact Redis, Cloudflare, or Resend. CI also builds and audits dependencies.
+The CSP restricts external scripts to Analytics and Turnstile and denies framing,
+plugins, and foreign form targets. Inline scripts/styles remain allowed to
+support static Next.js hydration and the existing UI; CSP therefore does not
+fully prevent inline script injection. Strong nonce-based CSP would require a
+separate rendering change and browser verification.

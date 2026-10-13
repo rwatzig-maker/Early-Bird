@@ -1,12 +1,13 @@
 import {NextResponse} from 'next/server';
 import {ownerEmail, acknowledgment} from './emailTemplates';
-import {enforceRateLimit} from './rateLimit';
+import {enforceRateLimit, reserveEmailAllowance} from './rateLimit';
+import {readContactBody, ContactBodyError} from './requestBody';
 export const runtime='nodejs';
 export async function POST(req:Request){
  const key=process.env.RESEND_API_KEY;const from=process.env.CONTACT_FROM_EMAIL;const to=process.env.CONTACT_TO_EMAIL;
  if(!key||!from||!to)return NextResponse.json({error:'Contact service not configured'},{status:503});
  let data:Record<string,unknown>;
- try{data=await req.json()}catch{return NextResponse.json({error:'Invalid request'},{status:400})}
+ try{data=await readContactBody(req)}catch(error){return NextResponse.json({error:error instanceof ContactBodyError?error.message:'Invalid request'},{status:error instanceof ContactBodyError?error.status:400})}
  if(data.website)return NextResponse.json({ok:true});
  const rate=await enforceRateLimit(req);
  if(rate==='limited')return NextResponse.json({error:'Too many requests. Please try again later.'},{status:429,headers:{'Retry-After':'600'}});
@@ -35,7 +36,11 @@ export async function POST(req:Request){
  const name=String(data.name||'').trim(),email=String(data.email||'').trim(),phone=String(data.phone||'').trim(),message=String(data.message||'').trim();
  const inquiryType=String(data.inquiryType||'other'),careType=String(data.careType||'unsure');
  if(!['tour','availability','tuition','other'].includes(inquiryType)||!['unsure','infant','toddler','preschool'].includes(careType))return NextResponse.json({error:'Invalid inquiry selection'},{status:400});
- if(!name||name.length>100||!/^\S+@\S+\.\S+$/.test(email)||email.length>254||phone.length>30||message.length<10||message.length>2000)return NextResponse.json({error:'Invalid fields'},{status:400});
+ if(!name||name.length>100||! /^[A-Za-z0-9.!#$%&'*+\/=?^_`{|}~-]+@[A-Za-z0-9](?:[A-Za-z0-9.-]*[A-Za-z0-9])?\.[A-Za-z]{2,}$/.test(email)||email.length>254||phone.length>30||message.length<10||message.length>2000)return NextResponse.json({error:'Invalid fields'},{status:400});
+
+ const allowance=await reserveEmailAllowance(email);
+ if(allowance==='limited')return NextResponse.json({error:'Daily inquiry limit reached. Please call us.'},{status:429,headers:{'Retry-After':String(Math.ceil((86400000-(Date.now()%86400000))/1000))}});
+ if(allowance==='unavailable')return NextResponse.json({error:'Contact service temporarily unavailable'},{status:503});
 
  // Send an owner notification first; only a successful acceptance triggers the acknowledgment.
  const lang=data.lang==='es'?'es':'en';
