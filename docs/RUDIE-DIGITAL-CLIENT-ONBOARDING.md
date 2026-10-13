@@ -11,7 +11,11 @@ Status: reusable operating checklist. Update for every customer and record who v
 - [ ] Register domain in client's name; record registrar, renewal and recovery ownership
 - [ ] Configure authoritative DNS, apex to www redirect, HTTPS, canonical URL, favicon, metadata, robots/sitemap
 - [ ] **Before every client go-live, update `app/sitemap.ts` and `app/robots.ts` (or equivalents) to the final client domain; ensure no staging / `rudie.org` references remain, then open `/sitemap.xml` and `/robots.txt` on production and verify their live contents**
-- [ ] Verify Search Console ownership, submit the production sitemap, inspect homepage URL, request indexing, and later monitor indexing coverage
+- [ ] **Google Search Console launch procedure:** Add the client's domain property, verify ownership with the registrar DNS TXT record, and retain the verification record
+- [ ] Submit `https://<canonical-client-domain>/sitemap.xml` in Search Console; confirm status **Success** and correct discovered-page count (do not treat mere submission as success)
+- [ ] Use URL Inspection for the canonical homepage; run live URL test and **Request Indexing** if eligible; record request date and result
+- [ ] Recheck indexing status after several days and again as needed; distinguish sitemap discovery, indexing request, actual indexing, and search rankings
+- [ ] Confirm client access to Search Console and review Google Business Profile connection/optimization where applicable
 - [ ] Protect existing MX/forwarding/TXT during DNS changes; test apex, www, mobile and redirects
 - [ ] Add GA4 and Search Console; ensure privacy disclosure and event/UTM tracking as appropriate
 
