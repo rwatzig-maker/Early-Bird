@@ -38,7 +38,12 @@ export async function POST(req:Request){
  const notify=ownerEmail({name,email,phone,message,inquiryType,careType});
  async function send(payload:Record<string,unknown>){
   const response=await fetch('https://api.resend.com/emails',{method:'POST',headers:{Authorization:`Bearer ${key}`,'Content-Type':'application/json'},body:JSON.stringify(payload),signal:AbortSignal.timeout(10000)});
-  if(!response.ok)throw Error('Email delivery provider rejected request');
+  if(!response.ok){
+   // Log only a provider error category, never message content, keys, or recipient addresses.
+   let category='unknown';
+   try{const issue:unknown=await response.json();if(issue&&typeof issue==='object'&&'name' in issue&&typeof issue.name==='string')category=issue.name.slice(0,64);}catch{}
+   throw Error(`Resend rejected send (HTTP ${response.status}, category ${category})`);
+  }
  }
  try{
   await send({from,to:[to],reply_to:email,subject:`Early Bird inquiry: ${inquiryType}`,html:notify.html,text:notify.text});
@@ -47,6 +52,6 @@ export async function POST(req:Request){
  try{
   const reply=acknowledgment(name,lang);
   await send({from,to:[email],reply_to:to,subject:lang==='es'?'Early Bird: Recibimos tu mensaje':'Early Bird: We received your message',html:reply.html,text:reply.text});
- }catch{console.error('Early Bird acknowledgment could not be sent');}
+ }catch(error){console.error('Early Bird acknowledgment failed:',error instanceof Error?error.message:'Unknown error');}
  return NextResponse.json({ok:true});
 }
