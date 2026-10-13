@@ -1,11 +1,16 @@
 import {NextResponse} from 'next/server';
 import {ownerEmail, acknowledgment} from './emailTemplates';
+import {enforceRateLimit} from './rateLimit';
 export const runtime='nodejs';
 export async function POST(req:Request){
  const key=process.env.RESEND_API_KEY;const from=process.env.CONTACT_FROM_EMAIL;const to=process.env.CONTACT_TO_EMAIL;
  if(!key||!from||!to)return NextResponse.json({error:'Contact service not configured'},{status:503});
  let data:Record<string,unknown>;
  try{data=await req.json()}catch{return NextResponse.json({error:'Invalid request'},{status:400})}
+ if(data.website)return NextResponse.json({ok:true});
+ const rate=await enforceRateLimit(req);
+ if(rate==='limited')return NextResponse.json({error:'Too many requests. Please try again later.'},{status:429,headers:{'Retry-After':'600'}});
+ if(rate==='unavailable')return NextResponse.json({error:'Contact service temporarily unavailable'},{status:503});
 
  // Cloudflare Siteverify is mandatory: never trust the browser token alone.
  const secret=process.env.TURNSTILE_SECRET_KEY;
@@ -27,7 +32,6 @@ export async function POST(req:Request){
   verified=result.success===true&&typeof result.hostname==='string'&&allowedHostnames.includes(result.hostname.toLowerCase())&&result.action==='contact';
  }catch{return NextResponse.json({error:'Verification unavailable'},{status:503});}
  if(!verified)return NextResponse.json({error:'Human verification failed'},{status:403});
- if(data.website)return NextResponse.json({ok:true});
  const name=String(data.name||'').trim(),email=String(data.email||'').trim(),phone=String(data.phone||'').trim(),message=String(data.message||'').trim();
  const inquiryType=String(data.inquiryType||'other'),careType=String(data.careType||'unsure');
  if(!['tour','availability','tuition','other'].includes(inquiryType)||!['unsure','infant','toddler','preschool'].includes(careType))return NextResponse.json({error:'Invalid inquiry selection'},{status:400});
