@@ -8,8 +8,8 @@ export async function POST(req:Request){
 
  // Cloudflare Siteverify is mandatory: never trust the browser token alone.
  const secret=process.env.TURNSTILE_SECRET_KEY;
- const expectedHostname=process.env.TURNSTILE_EXPECTED_HOSTNAME;
- if(!secret||!expectedHostname)return NextResponse.json({error:'Verification is not configured'},{status:503});
+ const allowedHostnames=(process.env.TURNSTILE_ALLOWED_HOSTNAMES||'').split(',').map(s=>s.trim().toLowerCase()).filter(Boolean);
+ if(!secret||allowedHostnames.length===0)return NextResponse.json({error:'Verification is not configured'},{status:503});
  const token=typeof data['cf-turnstile-response']==='string'?data['cf-turnstile-response']:'';
  if(!token||token.length>2048)return NextResponse.json({error:'Human verification required'},{status:403});
  let verified=false;
@@ -23,7 +23,7 @@ export async function POST(req:Request){
   });
   if(!response.ok)throw Error('Siteverify unavailable');
   const result: {success?:boolean;hostname?:string;action?:string}=await response.json();
-  verified=result.success===true&&result.hostname===expectedHostname&&result.action==='contact';
+  verified=result.success===true&&typeof result.hostname==='string'&&allowedHostnames.includes(result.hostname.toLowerCase())&&result.action==='contact';
  }catch{return NextResponse.json({error:'Verification unavailable'},{status:503});}
  if(!verified)return NextResponse.json({error:'Human verification failed'},{status:403});
  if(data.website)return NextResponse.json({ok:true});
