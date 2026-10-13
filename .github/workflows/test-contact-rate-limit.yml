@@ -1,0 +1,33 @@
+name: Test Early Bird contact rate limiting
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Probe contact API without sending emails
+        shell: bash
+        run: |
+          set -euo pipefail
+          URL="https://www.earlybirdchildcarellc.com/api/contact"
+          BODY='{"website":"","cf-turnstile-response":""}'
+          saw_limit=0
+          for i in $(seq 1 12); do
+            code="$(curl --silent --show-error --max-time 15 --output /tmp/earlybird-response.json --write-out '%{http_code}' --request POST "$URL" --header 'Content-Type: application/json' --data "$BODY")"
+            echo "Probe $i returned HTTP $code"
+            if [ "$code" = "429" ]; then
+              saw_limit=1
+              echo "PASS: server returned HTTP 429 and did not send email."
+              break
+            fi
+            if [ "$code" != "403" ]; then
+              echo "::error::Unexpected HTTP $code (expected 403 before rate limit or 429 at limit)"
+              exit 1
+            fi
+          done
+          if [ "$saw_limit" != "1" ]; then
+            echo "::error::No HTTP 429 observed after 12 requests; check Redis counter and forwarded IP."
+            exit 1
+          fi
