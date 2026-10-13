@@ -365,3 +365,12 @@ body{background:var(--paper)}
 .communityMediaLinks a{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid #cce0d2;border-radius:12px;padding:13px 15px;font-weight:800;color:#71406c;font-size:14px;line-height:1.4;transition:border-color .2s,background .2s}
 .communityMediaLinks a:hover,.communityMediaLinks a:focus-visible{background:#fff7fa;border-color:#b870a1}
 .communityMediaLinks a span{display:grid;place-items:center;flex:0 0 32px;height:32px;border-radius:50%;background:#f7e7ef;color:#9d3d7b}
+
+/* Prevent horizontal document drift on touch devices, while retaining vertical scrolling */
+html,body{max-width:100%;overflow-x:clip}
+@media(max-width:760px){
+  body,#top,main{max-width:100%;min-width:0;overflow-x:clip}
+  .hero,.heroShell,.heroCard,.siteHeader,.daySection,.playSection,.hoursSection,.contactSection,.footer{max-width:100%;min-width:0}
+  .heroCard,.heroShell,.contactInfo,.contactFormV11{min-width:0}
+  .siteHeader nav{max-width:100%}
+}
