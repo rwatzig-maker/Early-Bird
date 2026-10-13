@@ -305,3 +305,18 @@ body{background:var(--paper)}
 .reviewSection>.textLink{color:#80385e!important}
 .whyStory{grid-template-columns:minmax(0,1fr)!important;gap:0!important;padding-left:0!important}
 .whyStoryNumber{display:none!important}
+
+/* Larger approved Early Bird bird-and-sun logo, without crowding navigation */
+@media(min-width:1101px){
+ .siteHeader .brand img{width:116px!important;height:116px!important;object-fit:contain}
+ .siteHeader{min-height:138px!important}
+ .siteHeader .brand{gap:14px}
+}
+@media(min-width:761px) and (max-width:1100px){
+ .siteHeader .brand img{width:94px!important;height:94px!important;object-fit:contain}
+ .siteHeader{min-height:116px!important}
+}
+@media(max-width:760px){
+ .siteHeader .brand img{width:82px!important;height:82px!important;object-fit:contain}
+ .siteHeader .brand{gap:8px}
+}
