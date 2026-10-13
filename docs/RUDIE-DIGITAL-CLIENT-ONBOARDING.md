@@ -10,6 +10,8 @@ Status: reusable operating checklist. Update for every customer and record who v
 ## Domain, hosting and launch
 - [ ] Register domain in client's name; record registrar, renewal and recovery ownership
 - [ ] Configure authoritative DNS, apex to www redirect, HTTPS, canonical URL, favicon, metadata, robots/sitemap
+- [ ] **Before every client go-live, update `app/sitemap.ts` and `app/robots.ts` (or equivalents) to the final client domain; ensure no staging / `rudie.org` references remain, then open `/sitemap.xml` and `/robots.txt` on production and verify their live contents**
+- [ ] Verify Search Console ownership, submit the production sitemap, inspect homepage URL, request indexing, and later monitor indexing coverage
 - [ ] Protect existing MX/forwarding/TXT during DNS changes; test apex, www, mobile and redirects
 - [ ] Add GA4 and Search Console; ensure privacy disclosure and event/UTM tracking as appropriate
 
