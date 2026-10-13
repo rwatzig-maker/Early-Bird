@@ -1,0 +1,43 @@
+name: Early Bird R2 offsite backup
+on:
+  schedule:
+    - cron: '17 9 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Verify configuration
+        env:
+          ACCOUNT: ${{ secrets.R2_ACCOUNT_ID }}
+          KEY: ${{ secrets.R2_ACCESS_KEY_ID }}
+          SECRET: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          BUCKET: ${{ secrets.R2_BUCKET }}
+        run: |
+          for v in ACCOUNT KEY SECRET BUCKET; do
+            if [ -z "${!v}" ]; then echo "::error::Missing R2 backup secret: $v"; exit 1; fi
+          done
+      - name: Create and upload source and asset backup
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: auto
+          ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          BUCKET: ${{ secrets.R2_BUCKET }}
+        run: |
+          set -euo pipefail
+          python -m pip install --quiet awscli
+          DATE="$(date -u +%Y-%m-%dT%H-%M-%SZ)"
+          NAME="early-bird-$DATE-${GITHUB_SHA:0:12}.tar.gz"
+          tar -czf "/tmp/$NAME" --exclude=.git --exclude=node_modules --exclude=.next .
+          sha256sum "/tmp/$NAME" | awk '{print $1}' > "/tmp/$NAME.sha256"
+          ENDPOINT="https://$ACCOUNT_ID.r2.cloudflarestorage.com"
+          aws --endpoint-url "$ENDPOINT" s3 cp "/tmp/$NAME" "s3://$BUCKET/early-bird/$NAME"
+          aws --endpoint-url "$ENDPOINT" s3 cp "/tmp/$NAME.sha256" "s3://$BUCKET/early-bird/$NAME.sha256"
+          aws --endpoint-url "$ENDPOINT" s3api head-object --bucket "$BUCKET" --key "early-bird/$NAME" >/dev/null
+          echo "Backup uploaded and verified: $NAME"
