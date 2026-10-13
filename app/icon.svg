@@ -1,1 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><rect width="128" height="128" rx="29" fill="#fff8f0"/><circle cx="29" cy="30" r="12" fill="#ffd34d"/><path d="M39 70C39 47 57 34 78 36c19 2 29 15 28 33-2 23-19 37-43 33C48 99 39 88 39 70Z" fill="#4f83ff"/><path d="M58 62c10-8 21-7 30-1-11 7-15 16-15 25-10-5-16-13-15-24Z" fill="#7ee081"/><path d="m97 64 22-9-16 20Z" fill="#ff6b6b"/><circle cx="85" cy="57" r="3" fill="#222943"/><path d="M46 88c9 9 18 13 30 13" fill="none" stroke="#ec87b5" stroke-width="5" stroke-linecap="round"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Early Bird bird and sun">
+<rect width="128" height="128" rx="26" fill="#fffaf4"/>
+<g fill="none" stroke="#0e203b" stroke-width="3.5" stroke-linecap="round">
+<circle cx="31" cy="31" r="13" fill="#ffb619"/>
+<path d="M31 9v-4M31 57v-4M9 31H5m48 0h-4M15 15l-4-4m40 40-4-4M47 15l4-4M15 47l-4 4"/>
+</g>
+<path d="M15 105q39-23 97 4" stroke="#0e203b" stroke-width="5" stroke-linecap="round" fill="none"/>
+<path d="M38 99q-24-16-22-32 20-2 27 31" fill="#18b1cc" stroke="#0e203b" stroke-width="4" stroke-linejoin="round"/>
+<path d="M76 47q15-24 31-21 2 26-16 43" fill="#529ab5" stroke="#0e203b" stroke-width="5"/>
+<path d="M77 55q28-27 33-16 9 7-6 18 15 2 4 16 4 9-17 14L74 74Z" fill="#4d95b4" stroke="#0e203b" stroke-width="4" stroke-linejoin="round"/>
+<path d="M48 51q-12-2-15 8l15 5Z" fill="#ffb619" stroke="#0e203b" stroke-width="4" stroke-linejoin="round"/>
+<path d="M47 82q-10-33 16-44 22-8 33 14 11 23-4 39-17 15-45-9Z" fill="#f12d59" stroke="#0e203b" stroke-width="5"/>
+<path d="M47 76q22-8 31 17-23-2-31-17Z" fill="#fff" />
+<circle cx="62" cy="53" r="7" fill="#fff"/><circle cx="63" cy="53" r="4.5" fill="#0e203b"/>
+<path d="M76 94l-5 12m20-11-3 13" stroke="#0e203b" stroke-width="4" stroke-linecap="round"/>
+<path d="M19 106q-6-12-14-10 0 11 14 10" fill="#f12d59" stroke="#0e203b" stroke-width="3"/>
+</svg>
