@@ -1,17 +1,17 @@
+import {randomUUID} from 'node:crypto';
 import {NextResponse} from 'next/server';
 import {ownerEmail, acknowledgment} from './emailTemplates';
-import {enforceRateLimit, reserveEmailAllowance} from './rateLimit';
+import {enforceRateLimit, reserveEmailAllowance, trustedClientIp} from './rateLimit';
 import {readContactBody, ContactBodyError} from './requestBody';
 export const runtime='nodejs';
+export const maxDuration=20;
 export async function POST(req:Request){
+ if(process.env.CONTACT_DISABLED==='true'||(process.env.VERCEL_ENV&&process.env.VERCEL_ENV!=='production'&&process.env.CONTACT_ALLOW_NON_PRODUCTION!=='true'))return NextResponse.json({error:'Please call us to inquire.'},{status:503});
  const key=process.env.RESEND_API_KEY;const from=process.env.CONTACT_FROM_EMAIL;const to=process.env.CONTACT_TO_EMAIL;
  if(!key||!from||!to)return NextResponse.json({error:'Contact service not configured'},{status:503});
  let data:Record<string,unknown>;
  try{data=await readContactBody(req)}catch(error){return NextResponse.json({error:error instanceof ContactBodyError?error.message:'Invalid request'},{status:error instanceof ContactBodyError?error.status:400})}
  if(data.website)return NextResponse.json({ok:true});
- const rate=await enforceRateLimit(req);
- if(rate==='limited')return NextResponse.json({error:'Too many requests. Please try again later.'},{status:429,headers:{'Retry-After':'600'}});
- if(rate==='unavailable')return NextResponse.json({error:'Contact service temporarily unavailable'},{status:503});
 
  // Cloudflare Siteverify is mandatory: never trust the browser token alone.
  const secret=process.env.TURNSTILE_SECRET_KEY;
@@ -19,24 +19,29 @@ export async function POST(req:Request){
  if(!secret||allowedHostnames.length===0)return NextResponse.json({error:'Verification is not configured'},{status:503});
  const token=typeof data['cf-turnstile-response']==='string'?data['cf-turnstile-response']:'';
  if(!token||token.length>2048)return NextResponse.json({error:'Human verification required'},{status:403});
+ const name=String(data.name||'').trim(),email=String(data.email||'').trim(),phone=String(data.phone||'').trim(),message=String(data.message||'').trim();
+ const inquiryType=String(data.inquiryType||'other'),careType=String(data.careType||'unsure');
+ if(!['tour','availability','tuition','other'].includes(inquiryType)||!['unsure','infant','toddler','preschool'].includes(careType))return NextResponse.json({error:'Invalid inquiry selection'},{status:400});
+ if(!name||name.length>100||! /^[A-Za-z0-9.!#$%&'*+\/=?^_`{|}~-]+@[A-Za-z0-9](?:[A-Za-z0-9.-]*[A-Za-z0-9])?\.[A-Za-z]{2,}$/.test(email)||email.length>254||phone.length>30||message.length<10||message.length>2000)return NextResponse.json({error:'Invalid fields'},{status:400});
+
+ const rate=await enforceRateLimit(req);
+ if(rate==='limited')return NextResponse.json({error:'Too many requests. Please try again later.'},{status:429,headers:{'Retry-After':'600'}});
+ if(rate==='unavailable')return NextResponse.json({error:'Contact service temporarily unavailable'},{status:503});
+
  let verified=false;
  try{
   const form=new URLSearchParams({secret,response:token});
-  const ip=req.headers.get('cf-connecting-ip') || req.headers.get('x-real-ip');
+  const ip=trustedClientIp(req);
   if(ip)form.set('remoteip',ip);
   const response=await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify',{
    method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},
-   body:form.toString(),signal:AbortSignal.timeout(8000),cache:'no-store'
+   body:form.toString(),signal:AbortSignal.timeout(3000),cache:'no-store'
   });
   if(!response.ok)throw Error('Siteverify unavailable');
   const result: {success?:boolean;hostname?:string;action?:string}=await response.json();
   verified=result.success===true&&typeof result.hostname==='string'&&allowedHostnames.includes(result.hostname.toLowerCase())&&result.action==='contact';
  }catch{return NextResponse.json({error:'Verification unavailable'},{status:503});}
  if(!verified)return NextResponse.json({error:'Human verification failed'},{status:403});
- const name=String(data.name||'').trim(),email=String(data.email||'').trim(),phone=String(data.phone||'').trim(),message=String(data.message||'').trim();
- const inquiryType=String(data.inquiryType||'other'),careType=String(data.careType||'unsure');
- if(!['tour','availability','tuition','other'].includes(inquiryType)||!['unsure','infant','toddler','preschool'].includes(careType))return NextResponse.json({error:'Invalid inquiry selection'},{status:400});
- if(!name||name.length>100||! /^[A-Za-z0-9.!#$%&'*+\/=?^_`{|}~-]+@[A-Za-z0-9](?:[A-Za-z0-9.-]*[A-Za-z0-9])?\.[A-Za-z]{2,}$/.test(email)||email.length>254||phone.length>30||message.length<10||message.length>2000)return NextResponse.json({error:'Invalid fields'},{status:400});
 
  const allowance=await reserveEmailAllowance(email);
  if(allowance==='limited')return NextResponse.json({error:'Daily inquiry limit reached. Please call us.'},{status:429,headers:{'Retry-After':String(Math.ceil((86400000-(Date.now()%86400000))/1000))}});
@@ -44,9 +49,10 @@ export async function POST(req:Request){
 
  // Send an owner notification first; only a successful acceptance triggers the acknowledgment.
  const lang=data.lang==='es'?'es':'en';
+ const requestId=randomUUID();
  const notify=ownerEmail({name,email,phone,message,inquiryType,careType});
- async function send(payload:Record<string,unknown>){
-  const response=await fetch('https://api.resend.com/emails',{method:'POST',headers:{Authorization:`Bearer ${key}`,'Content-Type':'application/json'},body:JSON.stringify(payload),signal:AbortSignal.timeout(10000)});
+ async function send(payload:Record<string,unknown>,kind:string){
+  const response=await fetch('https://api.resend.com/emails',{method:'POST',headers:{Authorization:`Bearer ${key}`,'Content-Type':'application/json','Idempotency-Key':requestId+':'+kind},body:JSON.stringify(payload),signal:AbortSignal.timeout(4000),redirect:'error'});
   if(!response.ok){
    // Log only a provider error category, never message content, keys, or recipient addresses.
    let category='unknown';
@@ -55,12 +61,12 @@ export async function POST(req:Request){
   }
  }
  try{
-  await send({from,to:[to],reply_to:email,subject:`Early Bird inquiry: ${inquiryType}`,html:notify.html,text:notify.text});
+  await send({from,to:[to],reply_to:email,subject:`Early Bird inquiry: ${inquiryType}`,html:notify.html,text:notify.text},'owner');
  }catch{return NextResponse.json({error:'Delivery failed'},{status:502})}
  // An acknowledgment failure must not cause users to resubmit an already-delivered inquiry.
  try{
   const reply=acknowledgment(name,lang);
-  await send({from,to:[email],reply_to:to,subject:lang==='es'?'Early Bird: Recibimos tu mensaje':'Early Bird: We received your message',html:reply.html,text:reply.text});
+  await send({from,to:[email],reply_to:to,subject:lang==='es'?'Early Bird: Recibimos tu mensaje':'Early Bird: We received your message',html:reply.html,text:reply.text},'ack');
  }catch(error){console.error('Early Bird acknowledgment failed:',error instanceof Error?error.message:'Unknown error');}
  return NextResponse.json({ok:true});
 }

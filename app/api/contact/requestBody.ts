@@ -14,18 +14,22 @@ export async function readContactBody(req: Request): Promise<Record<string, unkn
   const reader = req.body.getReader();
   const chunks: Uint8Array[] = [];
   let size = 0;
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  const deadline=new Promise<never>((_,reject)=>{
+    timer=setTimeout(()=>{reject(new ContactBodyError(408,'Request timed out'));void reader.cancel().catch(()=>{});},2000);
+  });
   try {
     while (true) {
-      const {done, value} = await reader.read();
+      const {done, value} = await Promise.race([reader.read(),deadline]);
       if (done) break;
       size += value.byteLength;
       if (size > MAX_CONTACT_BYTES) {
-        await reader.cancel();
+        void reader.cancel().catch(()=>{});
         throw new ContactBodyError(413, 'Request too large');
       }
       chunks.push(value);
     }
-  } finally { reader.releaseLock(); }
+  } finally { clearTimeout(timer); reader.releaseLock(); }
   let data: unknown;
   try { data = JSON.parse(Buffer.concat(chunks).toString('utf8')); }
   catch { throw new ContactBodyError(400, 'Invalid request'); }
