@@ -22,7 +22,7 @@
 .mealIllustration{background:#fbe7ee;border-radius:38px;min-height:380px;display:grid;place-items:center;position:relative;overflow:hidden}
 .mealPlate{width:min(290px,78%);aspect-ratio:1;background:white;border:14px solid #f4fcf1;border-radius:50%;box-shadow:0 20px 40px #76465c22;display:grid;grid-template-columns:1fr 1fr;align-items:center;justify-items:center;transform:rotate(-8deg)}.mealPlate span{font-size:76px}.mealSparkle{position:absolute;font-size:60px;color:#ec9a31}.sparkleOne{top:28px;left:45px}.sparkleTwo{right:40px;bottom:24px}
 @media(max-width:1050px){.quickInfo{padding:18px 3%;gap:6px}.quickInfoItem{gap:10px;padding:8px}.quickIcon{min-width:43px;height:43px;font-size:22px}.quickInfoItem strong{font-size:16px}.quickInfoItem span span{font-size:13px}.mealSection{gap:35px;padding:75px 5%}}
-@media(max-width:760px){.quickInfo{grid-template-columns:1fr;gap:0;padding:12px 5%}.quickInfoItem{border:0;border-bottom:1px solid #eee4ed;padding:12px 5px}.quickInfoItem:last-child{border:0}.quickInfoItem span span br{display:none}.mealSection{grid-template-columns:1fr;gap:32px;padding:65px 6%}.mealIllustration{min-height:265px;order:2}.mealPlate{width:210px;border-width:10px}.mealPlate span{font-size:55px}.mealCopy{order:1}.mealCopy p{font-size:16px}}
+@media(max-width:760px){.quickInfo{grid-template-columns:1fr;gap:0;padding:12px 5%}.quickInfoItem{border:0;border-bottom:1px solid #eee4ed;padding:12px 5px}.quickInfoItem:last-child{border:0}.mealSection{grid-template-columns:1fr;gap:32px;padding:65px 6%}.mealIllustration{min-height:265px;order:2}.mealPlate{width:210px;border-width:10px}.mealPlate span{font-size:55px}.mealCopy{order:1}.mealCopy p{font-size:16px}}
 
 
 /* v1.3 — Meet Letty */
