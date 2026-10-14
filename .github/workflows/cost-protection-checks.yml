@@ -22,6 +22,8 @@ jobs:
       RUDIE_TEST_REDIS: '1'
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -45,13 +47,18 @@ jobs:
           assert 'put-bucket-lifecycle' not in s and 'put-bucket-policy' not in s
           print('PASS: backup bounds; no lifecycle/policy mutation')
           PY
-      - name: Test current stable Next.js without changing the committed pin
+      - name: Verify combined PR 1 and mobile PR 2 tree
         run: |
-          npm install --no-save --package-lock=false --ignore-scripts --no-audit --no-fund next@16.4.0
+          git fetch origin 3229b9906e0874554973b4ffbe0d884e6db2aff2
+          test "$(git diff --name-only $(git merge-base HEAD FETCH_HEAD) FETCH_HEAD)" = "app/globals.css"
+          COMBINED_TREE=$(git merge-tree --write-tree HEAD FETCH_HEAD)
+          git read-tree --reset -u "$COMBINED_TREE"
+          python3 - <<'PYTEST'
+          from pathlib import Path
+          assert '.quickInfoItem span span br{display:none}' not in Path('app/globals.css').read_text()
+          print('PASS: conflict-free combined tree; mobile line breaks retained')
+          PYTEST
           npm run test:security
           npx tsc --noEmit
           npm run build
           python3 tests/http-regression.py
-      - name: One-time bounded live spoof-header check (no token, no emails)
-        if: github.run_number == 2 && github.run_attempt == 1
-        run: python3 tests/live-ip-probe.py

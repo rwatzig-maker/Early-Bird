@@ -17,7 +17,7 @@ Main only, deterministic daily UTC object pair, existing early-bird/ prefix, 32 
 
 ## Billing and releases
 Keep existing Vercel $20 on-demand budget and automatic pause. No paid service/payment method added. Owner reports no Upstash billing details; verify standalone Free versus Marketplace billing.
-Next.js stays pinned at 16.3.8 here. Current stable observed: 16.4.0; upstream announced security fixes for October 14, 2026. Recheck the release and test an appropriate same-major patched upgrade before approving production. Announced is not released.
+Next.js is pinned at stable 16.4.0 (same major), with its matching npm lockfile; upstream announced security fixes for October 14, 2026. Recheck the release and test an appropriate same-major patched upgrade before approving production. Announced is not released.
 
 ## Checks
 npm ci --ignore-scripts --no-audit --no-fund
