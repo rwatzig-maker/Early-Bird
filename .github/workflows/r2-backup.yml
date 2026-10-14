@@ -5,8 +5,13 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+concurrency:
+  group: early-bird-r2-backup
+  cancel-in-progress: false
 jobs:
   backup:
+    if: github.ref == 'refs/heads/main' && vars.BACKUPS_DISABLED != 'true'
+    timeout-minutes: 10
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -27,14 +32,18 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: auto
+          AWS_MAX_ATTEMPTS: 2
+          AWS_RETRY_MODE: standard
           ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
           BUCKET: ${{ secrets.R2_BUCKET }}
         run: |
           set -euo pipefail
           python -m pip install --quiet awscli
-          DATE="$(date -u +%Y-%m-%dT%H-%M-%SZ)"
-          NAME="early-bird-$DATE-${GITHUB_SHA:0:12}.tar.gz"
+          DATE="$(date -u +%Y-%m-%d)"
+          NAME="early-bird-$DATE.tar.gz"
           tar -czf "/tmp/$NAME" --exclude=.git --exclude=node_modules --exclude=.next .
+          BYTES="$(stat -c%s "/tmp/$NAME")"
+          if [ "$BYTES" -gt 33554432 ]; then echo "::error::Backup exceeds 32 MiB allowance"; exit 1; fi
           sha256sum "/tmp/$NAME" | awk '{print $1}' > "/tmp/$NAME.sha256"
           ENDPOINT="https://$ACCOUNT_ID.r2.cloudflarestorage.com"
           aws --endpoint-url "$ENDPOINT" s3 cp "/tmp/$NAME" "s3://$BUCKET/early-bird/$NAME"

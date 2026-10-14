@@ -15,6 +15,7 @@ const csp = [
 ].join('; ');
 export default {
   poweredByHeader: false,
+  images: {unoptimized:true}, // Existing images are direct pre-optimized assets.
   async headers() {
     return [{source: '/:path*', headers: [
       {key: 'Content-Security-Policy', value: csp},
