@@ -42,3 +42,12 @@ jobs:
           assert 'put-bucket-lifecycle' not in s and 'put-bucket-policy' not in s
           print('PASS: backup bounds; no lifecycle/policy mutation')
           PY
+      - name: Test current stable Next.js without changing the committed pin
+        run: |
+          npm install --no-save --package-lock=false --ignore-scripts --no-audit --no-fund next@16.4.0
+          npm run test:security
+          npx tsc --noEmit
+          npm run build
+      - name: One-time bounded live spoof-header check (no token, no emails)
+        if: github.run_number == 2 && github.run_attempt == 1
+        run: python3 tests/live-ip-probe.py
