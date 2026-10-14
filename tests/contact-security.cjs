@@ -74,7 +74,7 @@ test('missing or malformed trusted IP fails closed; spoofed alternatives cannot 
  const original=global.fetch;let keys=[];
  global.fetch=async(url,init)=>{keys.push(JSON.parse(init.body)[6]);return Response.json({result:1});};
  try{
-  for(const raw of ['', '203.0.113.1, 198.51.100.2','evil','[::1]']){
+  for(const raw of ['', '203.0.113.1, 198.51.100.2','evil','[::1]','fe80::1%eth0']){
    const req=request(valid,{'x-vercel-forwarded-for':raw,'x-forwarded-for':'203.0.113.44','x-real-ip':'203.0.113.45','cf-connecting-ip':'203.0.113.46'});
    assert.equal(trustedClientIp(req),null);assert.equal(await enforceRateLimit(req),'unavailable');
   }

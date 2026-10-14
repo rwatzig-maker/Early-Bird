@@ -32,6 +32,9 @@ jobs:
       - run: python3 tests/cost-quotas.py
       - run: npx tsc --noEmit
       - run: npm run build
+      - run: python3 -m pip install --quiet pyyaml
+      - run: python3 tests/backup-bounds.py
+      - run: python3 tests/http-regression.py
       - name: Verify backup and retention boundaries
         run: |
           python3 - <<'PY'
@@ -48,6 +51,7 @@ jobs:
           npm run test:security
           npx tsc --noEmit
           npm run build
+          python3 tests/http-regression.py
       - name: One-time bounded live spoof-header check (no token, no emails)
         if: github.run_number == 2 && github.run_attempt == 1
         run: python3 tests/live-ip-probe.py

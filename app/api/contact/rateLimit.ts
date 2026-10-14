@@ -11,7 +11,7 @@ export const CONTACT_KILL_KEY='earlybird:contact:disabled';
 export function trustedClientIp(req:Request):string|null {
  const ip=req.headers.get('x-vercel-forwarded-for')?.trim()||'';
  const version=isIP(ip);
- if(!version)return null;
+ if(!version||ip.includes('%'))return null;
  if(version===6)return new URL('http://['+ip+']/').hostname.slice(1,-1).toLowerCase();
  return ip;
 }
