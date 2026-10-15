@@ -7,7 +7,7 @@ job=workflow['jobs']['backup']
 assert job['timeout-minutes']==10
 assert workflow['concurrency']=={'group':'early-bird-r2-backup','cancel-in-progress':False}
 assert 'BACKUPS_DISABLED' in job['if'] and 'refs/heads/main' in job['if']
-step=job['steps'][-1]
+step=next(s for s in job['steps'] if s.get('name') == 'Create and upload source and asset backup')
 assert step['env']['AWS_MAX_ATTEMPTS']==2 and step['env']['AWS_RETRY_MODE']=='standard'
 script=step['run']
 with tempfile.TemporaryDirectory() as temp:
