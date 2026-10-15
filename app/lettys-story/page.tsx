@@ -1,0 +1,31 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import styles from "./story.module.css";
+
+export const metadata: Metadata = {
+ title: "Letty's Story | Early Bird Child Care in Sandy, Oregon",
+ description: "Meet Leticia Virrueta, founder of Early Bird Child Care in Sandy, Oregon. Discover her journey, passion for bilingual child care, and commitment to families.",
+ alternates: { canonical: "/lettys-story" },
+ openGraph: { title: "Meet Letty — The Heart Behind Early Bird Child Care", description: "From an early childhood educator to a local business owner: Letty's story of family, language, culture, and care in Sandy, Oregon.", url: "https://www.earlybirdchildcarellc.com/lettys-story", type: "article", images: [{ url: "/letty-portrait.webp", alt: "Leticia Virrueta, founder of Early Bird Child Care" }] }
+};
+
+export default function LettysStory() {
+ return <main className={styles.page}>
+   <header className={styles.header}><Link href="/" className={styles.brand}><img src="/early-bird-approved.webp" alt="" width="58" height="58"/> <span>Early Bird <strong>Child Care</strong></span></Link><Link href="/#letty" className={styles.back}>← Back to Early Bird</Link></header>
+   <article className={styles.article} id="english">
+     <div className={styles.intro}><div><span className={styles.eyebrow}>THE HEART BEHIND EARLY BIRD · SANDY, OREGON</span><h1>For Letty, child care is about more than a place to spend the day.</h1><p className={styles.deck}>It is about feeling safe, being understood, and growing up proud of who you are.</p><div className={styles.actions}><a href="#espanol">Leer en español ↓</a><Link href="/#contact">Schedule a visit ↗</Link></div></div><div className={styles.portrait}><img src="/letty-portrait.webp" alt="Leticia Virrueta, founder of Early Bird Child Care"/><span>Meet Letty · Founder & educator</span></div></div>
+     <div className={styles.content}><p className={styles.lede}>Leticia “Letty” Virrueta spent 22 years working with children at Oregon Child Development Coalition before taking a leap toward a dream of her own: opening Early Bird Child Care in Sandy, Oregon.</p>
+       <h2>A place where language and culture belong</h2><p>For Letty, offering care in both Spanish and English is personal. She understands that many families want their children to learn and grow in two languages while staying connected to their heritage. At Early Bird, culture and language are part of everyday life — through conversation, play, and the relationships children build.</p>
+       <h2>Learning to build a business</h2><p>Starting her own child care program meant learning new skills beyond the classroom: staffing, enrollment, finances, and running a small business. Letty sought out training, business advice, and community support. First Children's Finance helped her navigate the Oregon Child Care Infrastructure Fund application process, and its Spanish-language learning opportunities helped her build confidence as a business owner.</p>
+       <p>With support from Business Oregon's Child Care Infrastructure Program, Letty was able to add an outdoor playground so children could have more room to play, explore, and discover.</p>
+       <h2>Why she keeps going</h2><p>As a mother of five, Letty knows how much trust it takes to leave a child in someone else's care. Her experiences as a working parent shaped the promise she wanted Early Bird to offer: attentive care, a welcoming home environment, and a place where children feel they belong.</p>
+       <p>She also dreams of one day opening a larger child care center. For now, her focus is on the children and families who walk through Early Bird's doors every day.</p>
+       <div className={styles.highlight}><span>Her mission</span><p>Helping children feel at home, supported, and proud of their language and culture.</p></div>
+       <div className={styles.credit}><strong>Featured by First Children's Finance</strong><p>This is an original summary of Letty's journey, based on her interview in <em>“Oregon Child Care Owner Wants to Preserve Culture for Families”</em> published by First Children's Finance. It is not a reproduction of the original article or an endorsement by the publisher.</p><a href="https://www.firstchildrensfinance.org/news?category=success-stories" target="_blank" rel="noopener noreferrer">Explore First Children's Finance success stories ↗</a></div>
+     </div>
+   </article>
+   <section id="espanol" className={styles.spanish}><div className={styles.content} lang="es"><span className={styles.eyebrow}>LA HISTORIA DE LETTY</span><h2>Un hogar donde el idioma y la cultura son parte del cuidado</h2><p>Leticia “Letty” Virrueta trabajó durante 22 años con niños en Oregon Child Development Coalition antes de cumplir su sueño de abrir Early Bird Child Care en Sandy, Oregón.</p><p>Para Letty, el cuidado infantil es mucho más que un lugar donde los niños pasan el día. Es un espacio donde se sienten seguros, queridos y orgullosos de su idioma y sus raíces. Por eso, en Early Bird el español y el inglés forman parte de la vida diaria.</p><p>Abrir su propio negocio también significó aprender sobre inscripciones, personal, finanzas y administración. Con capacitaciones y apoyo de organizaciones comunitarias, incluyendo First Children's Finance, Letty fue desarrollando esas habilidades. El Programa de Infraestructura para el Cuidado Infantil de Business Oregon también la ayudó a hacer realidad un nuevo patio de juegos.</p><p>Como madre de cinco hijos, Letty comprende lo importante que es confiar en la persona que cuida a nuestros niños. Su objetivo es ofrecer un ambiente familiar, cálido y educativo. Y sueña con algún día abrir un centro de cuidado infantil más grande.</p><p className={styles.translationNote}>Este relato es un resumen original inspirado en una entrevista publicada por First Children's Finance.</p><a href="#english" className={styles.topLink}>↑ Read in English</a></div></section>
+   <aside className={styles.cta}><span>Come meet Letty and the Early Bird family</span><h2>Every child's story deserves a warm beginning.</h2><Link href="/#contact">Schedule a tour ↗</Link></aside>
+   <footer className={styles.footer}><Link href="/">← Early Bird Child Care home</Link><span>Sandy, Oregon · Bilingual family child care</span></footer>
+ </main>;
+}
