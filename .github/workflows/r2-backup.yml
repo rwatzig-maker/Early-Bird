@@ -50,3 +50,26 @@ jobs:
           aws --endpoint-url "$ENDPOINT" s3 cp "/tmp/$NAME.sha256" "s3://$BUCKET/early-bird/$NAME.sha256"
           aws --endpoint-url "$ENDPOINT" s3api head-object --bucket "$BUCKET" --key "early-bird/$NAME" >/dev/null
           echo "Backup uploaded and verified: $NAME"
+
+      - name: Report verified backup to Rudie Digital
+        if: success()
+        env:
+          RD_EARLY_BIRD_HEALTH_SECRET: ${{ secrets.RD_EARLY_BIRD_HEALTH_SECRET }}
+        run: |
+          set -euo pipefail
+          if [ -z "${RD_EARLY_BIRD_HEALTH_SECRET:-}" ]; then
+            echo "::notice::Early Bird status reporting is not configured yet."
+            exit 0
+          fi
+          python - <<'PY' > /tmp/rd-backup-status.json
+          import json,os
+          from datetime import datetime,timezone
+          print(json.dumps({"repository":"rwatzig-maker/Early-Bird","verified":True,
+            "run_id":os.environ["GITHUB_RUN_ID"],
+            "timestamp":datetime.now(timezone.utc).isoformat()}))
+          PY
+          curl --fail --silent --show-error --max-time 15 --retry 2 \
+            -H "Authorization: Bearer $RD_EARLY_BIRD_HEALTH_SECRET" \
+            -H "Content-Type: application/json" \
+            --data-binary @/tmp/rd-backup-status.json \
+            https://rudie.org/api/integrations/early-bird-backup
