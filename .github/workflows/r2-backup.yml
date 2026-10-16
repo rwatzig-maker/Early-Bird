@@ -68,7 +68,7 @@ jobs:
             "run_id":os.environ["GITHUB_RUN_ID"],
             "timestamp":datetime.now(timezone.utc).isoformat()}))
           PY
-          curl --fail --silent --show-error --max-time 15 --retry 2 \
+          curl --fail-with-body --silent --show-error --max-time 15 --retry 2 \
             -H "Authorization: Bearer $RD_EARLY_BIRD_HEALTH_SECRET" \
             -H "Content-Type: application/json" \
             --data-binary @/tmp/rd-backup-status.json \
